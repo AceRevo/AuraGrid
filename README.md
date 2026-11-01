@@ -83,29 +83,24 @@ Below is an authentic screenshot of **AuraGrid** running live on a Windows 11 de
 <a name="-quick-start"></a>
 ## 🚀 Quick Start & Installation
 
-### Option A: Portable Standalone Release (Zero Setup)
-1. Head to the **[Releases](https://github.com/AceRevo/AuraGrid/releases)** tab and download `AuraGrid-v2.0.0-win32-x64.zip`.
-2. Extract the folder anywhere on your PC (e.g. `C:\Tools\AuraGrid`).
-3. Double-click **`Lanzar-AuraGrid.bat`** (or `CubeWorld.exe`).
-4. **AuraGrid** will immediately float smoothly over your Windows desktop.
+### Option 1: Run with Node.js / Electron (Direct from Repository)
+If you have **Node.js (v18+)** installed:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AceRevo/AuraGrid.git
+   cd AuraGrid
+   ```
+2. Double-click **`Lanzar-AuraGrid.bat`** (or run `npm start`).
+3. The smart batch runner automatically detects your local Electron runtime and launches AuraGrid directly over your desktop without needing to compile binaries.
 
-### Option B: Run from Source
-Prerequisites: **Node.js (v18+)** and **npm** installed.
+### Option 2: Portable Standalone Binary (`.zip` / `AuraGrid.exe` — Zero Setup)
+For end users who do not have Node.js installed or want a portable package:
+1. Go to the **[Releases](https://github.com/AceRevo/AuraGrid/releases)** tab and download **`AuraGrid-v2.0.0-win32-x64.zip`**.
+2. Extract the folder anywhere on your computer (e.g., `C:\AuraGrid`).
+3. Run **`AuraGrid.exe`** (or double-click `Lanzar-AuraGrid.bat`).
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/AceRevo/AuraGrid.git
-cd AuraGrid
-
-# 2. Install dependencies
-npm install
-
-# 3. Launch AuraGrid in development mode
-npm start
-```
-
-### Packaging into Production ASAR:
-To compile and package the staging files into the production bundle:
+### Packaging Staging Files into Production ASAR:
+To re-compile staging modifications into the production distribution archive:
 ```bash
 npx --yes @electron/asar pack staging-app dist/CubeWorld-win32-x64/resources/app.asar
 ```
@@ -194,6 +189,24 @@ For complete instructions on:
 4. **Modo Oclusión para Juegos:** Congela bucles gráficos cuando juegas a pantalla completa para dejar el 100% de la potencia de tu gráfica a tu juego.
 5. **Captura de Audio del Sistema (WASAPI):** Visualiza el sonido de Spotify, YouTube o videojuegos sin ecos ni duplicaciones.
 6. **Presets Rápidos de Ricing:** Cambia entre Caelestia, Noctalia, Serpentinum, Cyberdeck y Minimal con 1 solo clic.
+
+### 🚀 Cómo Ejecutar AuraGrid
+
+#### Opción 1: Ejecución con Node.js / Electron (Directo desde el Repositorio)
+Si tienes **Node.js (v18+)** instalado:
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/AceRevo/AuraGrid.git
+   cd AuraGrid
+   ```
+2. Haz doble clic en **`Lanzar-AuraGrid.bat`** (o escribe `npm start` en tu terminal).
+3. El lanzador inteligente detecta automáticamente tu entorno de Electron y abre AuraGrid directamente sobre tu fondo de escritorio.
+
+#### Opción 2: Paquete Portable Autónomo (`.zip` / `AuraGrid.exe` — Sin instalar Node.js)
+Para usuarios que sólo quieren el ejecutable listo para usar:
+1. Descarga el paquete compilado **`AuraGrid-v2.0.0-win32-x64.zip`** desde la sección [Releases](https://github.com/AceRevo/AuraGrid/releases).
+2. Descomprime la carpeta en cualquier ubicación de tu equipo.
+3. Ejecuta directamente **`AuraGrid.exe`** (o haz doble clic en `Lanzar-AuraGrid.bat`).
 
 ---
 
