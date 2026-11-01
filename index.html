@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraGrid // Next-Gen Bento Desktop HUD & Ecosystem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Orbitron:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Discreet Control Dock (Transparent Desktop Friendly, Compact & Ergonomic) -->
+  <header class="floating-control-dock" id="main-dock">
+    <div class="brand-tag" title="AuraGrid - Next-Gen Acrylic Bento HUD & Ecosystem">
+      <span class="icon">
+        <svg width="18" height="18" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="auraBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f0ff"/>
+              <stop offset="50%" stop-color="#a855f7"/>
+              <stop offset="100%" stop-color="#ec4899"/>
+            </linearGradient>
+            <filter id="auraBrandGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <path d="M14 2.5L25 8.7V21.1L14 27.3L3 21.1V8.7L14 2.5Z" stroke="url(#auraBrandGrad)" stroke-width="2" stroke-linejoin="round" filter="url(#auraBrandGlow)" fill="rgba(0, 240, 255, 0.08)"/>
+          <path d="M14 2.5V14.9M14 14.9L25 8.7M14 14.9L3 8.7M14 14.9V27.3" stroke="url(#auraBrandGrad)" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="14" cy="14.9" r="2.5" fill="#00f0ff" filter="url(#auraBrandGlow)"/>
+        </svg>
+      </span>
+      <span class="title">AURA<span class="accent">GRID</span></span>
+    </div>
+
+    <div class="dock-actions">
+      <!-- Workspace Modes Switcher Pill -->
+      <button id="btn-quick-modes" class="dock-mode-pill" title="Alternar Modo de Espacio (Focus, Ocio/Gaming, Minimal HUD, Estudio)">
+        <span id="mode-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </span>
+        <span id="mode-label">Modos</span>
+      </button>
+
+      <!-- Quick Ricing Presets Switcher -->
+      <button id="btn-quick-presets" class="dock-mode-pill" title="Cambiar Preset de Estilo Bento (Caelestia, Noctalia, Serpentinum...)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
+        <span>Ricing</span>
+      </button>
+
+      <!-- Add New Custom Widget -->
+      <button id="btn-add-cube" class="btn-add-cube" title="Crear o Añadir un nuevo Cubo Widget">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Cubo</span>
+      </button>
+
+      <!-- Master Lock / Unlock Movement Toggle -->
+      <button id="btn-lock-all" class="dock-mode-pill" title="Alternar entre Modo Edición y Modo HUD Bloqueado">
+        <span id="lock-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+        </span>
+        <span id="lock-label">Edición</span>
+      </button>
+
+      <!-- Pin to Desktop / Topmost Toggle -->
+      <button id="btn-pin-desktop" class="icon-btn" title="Fijar al fondo / Al frente">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.89A2 2 0 0 1 15 10.77V5h1a1 1 0 0 0 0-2H8a1 1 0 0 0 0 2h1v5.77a2 2 0 0 1-1.11 1.79l-1.78.89A2 2 0 0 0 5 15.24Z"/></svg>
+      </button>
+
+      <!-- Settings Hub -->
+      <button id="open-settings-btn" class="icon-btn" title="Centro de Configuración & Personalización (Ctrl + ,)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      
+      <!-- Collapse Dock for Pure HUD -->
+      <button id="btn-dock-collapse" class="icon-btn" title="Ocultar Barra Superior para Escritorio Limpio">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+      </button>
+
+      <!-- Global Clock -->
+      <span id="global-clock" class="dock-clock">00:00:00</span>
+    </div>
+  </header>
+
+  <!-- Discreet Floating Pill to Restore Dock when Hidden -->
+  <button id="dock-expand-pill" class="dock-expand-pill hidden" title="Mostrar Barra Superior de AuraGrid">
+    <svg width="13" height="13" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2.5L25 8.7V21.1L14 27.3L3 21.1V8.7L14 2.5Z" stroke="#00f0ff" stroke-width="2" stroke-linejoin="round" fill="rgba(0, 240, 255, 0.15)"/>
+      <path d="M14 2.5V14.9M14 14.9L25 8.7M14 14.9L3 8.7M14 14.9V27.3" stroke="#00f0ff" stroke-width="1.6"/>
+    </svg>
+    <span>AURAGRID</span>
+  </button>
+
+  <!-- Floating Snap Layouts Bento HUD (Windows 11 Wireframe Selector) -->
+  <div id="floating-snap-hud" class="floating-snap-hud hidden">
+    <div class="snap-hud-presets-row">
+      <!-- 1. Solo 1:1 -->
+      <button class="snap-preset-card" data-snap-layout="single" title="Solo: 1 Cubo Principal en Pantalla">
+        <div class="snap-mini-preview single">
+          <div class="snap-cell"></div>
+        </div>
+      </button>
+
+      <!-- 2. Centrado con Icono / App -->
+      <button class="snap-preset-card" data-snap-layout="embed" title="Modo Aplicación: Foco Interactivo con App">
+        <div class="snap-mini-preview embed">
+          <div class="snap-cell">
+            <div class="snap-app-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m21.12 6.4-8.08-4.66a2.12 2.12 0 0 0-2.08 0L2.88 6.4A2.12 2.12 0 0 0 1.84 8.2v9.33a2.12 2.12 0 0 0 1.04 1.8l8.08 4.67a2.12 2.12 0 0 0 2.08 0l8.08-4.67a2.12 2.12 0 0 0 1.04-1.8V8.2a2.12 2.12 0 0 0-1.04-1.8z"/></svg>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!-- 3. Dúo 50/50 Horizontal -->
+      <button class="snap-preset-card active" data-snap-layout="duo" title="Dúo Horizontal: 2 Columnas Balanceadas (50/50)">
+        <div class="snap-mini-preview duo-h">
+          <div class="snap-cell"></div>
+          <div class="snap-cell"></div>
+        </div>
+      </button>
+
+      <!-- 4. Dúo 50/50 Vertical -->
+      <button class="snap-preset-card" data-snap-layout="duo-v" title="Dúo Vertical: 2 Módulos Apilados">
+        <div class="snap-mini-preview duo-v">
+          <div class="snap-cell"></div>
+          <div class="snap-cell"></div>
+        </div>
+      </button>
+
+      <!-- 5. Bento Asimétrico 1+2 -->
+      <button class="snap-preset-card" data-snap-layout="gaming" title="Bento 1+2: Principal + 2 Módulos Apilados">
+        <div class="snap-mini-preview bento-1-2">
+          <div class="snap-cell" style="flex: 1.25;"></div>
+          <div class="snap-col-stacked">
+            <div class="snap-cell"></div>
+            <div class="snap-cell"></div>
+          </div>
+        </div>
+      </button>
+
+      <!-- 6. Bento Quad 2x2 -->
+      <button class="snap-preset-card" data-snap-layout="studio" title="Bento Quad: 4 Cuadrantes Simétricos (2x2)">
+        <div class="snap-mini-preview bento-quad">
+          <div class="snap-cell"></div>
+          <div class="snap-cell"></div>
+          <div class="snap-cell"></div>
+          <div class="snap-cell"></div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Workspace Canvas (Transparent Fullscreen where Cubes live on Windows Desktop) -->
+  <main id="workspace" class="workspace">
+    <div id="snap-guide" class="snap-guide hidden"></div>
+  </main>
+
+  <!-- SETTINGS MODAL DIALOG -->
+  <div id="settings-backdrop" class="settings-modal-backdrop">
+    <div class="settings-modal">
+      <div class="settings-header">
+        <div class="settings-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Centro de Configuración & Ricing Studio</span>
+        </div>
+        <button id="close-settings-btn" class="close-btn" title="Cerrar (Esc)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="settings-body">
+        <nav class="settings-tabs">
+          <button class="tab-btn active" data-tab="tab-appearance">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
+            <span>Apariencia</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-widgets">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Cubos & Modos</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-audio">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10v4"/><path d="M6 6v12"/><path d="M10 3v18"/><path d="M14 8v8"/><path d="M18 5v14"/><path d="M22 10v4"/></svg>
+            <span>Audio & CAVA</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-behavior">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+            <span>Sistema</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-plugins">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-4"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-4"/><path d="m19.07 4.93-2.83 2.83"/></svg>
+            <span>Ecosistema</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-about">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>Acerca de</span>
+          </button>
+        </nav>
+
+        <div class="settings-content">
+          <!-- 1. Apariencia & Temas -->
+          <div id="tab-appearance" class="settings-section active">
+
+            <!-- Typography Font Selector -->
+            <div class="setting-group">
+              <div class="setting-label">Estilo Tipográfico (Fuentes del Sistema)</div>
+              <div class="setting-sublabel">Ajusta la fuente principal y mono de todos los widgets.</div>
+              <div class="font-selector-row" style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="font-opt-btn active" data-font="modern">Aa Modern Sans (Jakarta)</button>
+                <button class="font-opt-btn" data-font="mono">01 Code Mono (JetBrains)</button>
+                <button class="font-opt-btn" data-font="bento">Aa Bento Rounded (Outfit)</button>
+                <button class="font-opt-btn" data-font="cyber">⚡ Cyber HUD (Orbitron)</button>
+              </div>
+            </div>
+
+            <!-- Window Frame Aesthetic Style -->
+            <div class="setting-group">
+              <div class="setting-label">Estilo de Marco de Ventana (Window Frame Aesthetic)</div>
+              <div class="setting-sublabel">Define la textura del cristal, biselado y bordes de los cubos.</div>
+              <div class="window-style-row" style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+                <button class="win-style-btn active" data-win-style="bento">Bento Wayland</button>
+                <button class="win-style-btn" data-win-style="obsidian">Linux Obsidian</button>
+                <button class="win-style-btn" data-win-style="macos">macOS Mica</button>
+                <button class="win-style-btn" data-win-style="cyberdeck">Cyberdeck Tech</button>
+                <button class="win-style-btn" data-win-style="minimal">HUD Transparente</button>
+              </div>
+            </div>
+
+            <!-- Aura Glow Reactive Ambilight -->
+            <div class="setting-group" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+              <div>
+                <div class="toggle-title">Aura Glow Reactiva al Audio (Ambilight Desktop)</div>
+                <div class="toggle-desc">Proyecta un halo ambiental sobre el fondo de pantalla que late rítmicamente con la música</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-aura-glow" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- Themes Grid with Rich Visual Widget Previews -->
+            <div class="setting-group">
+              <div class="setting-label">Paletas de Color & Estilos Visuales</div>
+              <div class="setting-sublabel" style="margin-bottom:8px;">Selecciona el esquema estético que teñirá los cubos y sus visualizadores.</div>
+              <div class="themes-grid">
+                <div class="theme-card active" data-theme-name="win11-dark">
+                  <div class="theme-mini-widget" style="background: rgba(24, 26, 32, 0.88); border-color: rgba(96, 205, 255, 0.3);">
+                    <div class="theme-mini-header">
+                      <span style="color:#60cdff;">Win 11</span>
+                      <span class="theme-mini-badge" style="background:#60cdff; color:#000;">MICA</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:40%; background:rgba(255,255,255,0.2);"></div>
+                      <div class="theme-mini-bar" style="height:75%; background:#60cdff; box-shadow:0 0 6px #60cdff;"></div>
+                      <div class="theme-mini-bar" style="height:55%; background:#60cdff;"></div>
+                      <div class="theme-mini-bar" style="height:35%; background:rgba(255,255,255,0.2);"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Win 11 Dark</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="win11-light">
+                  <div class="theme-mini-widget" style="background: rgba(245, 247, 250, 0.92); border-color: rgba(0, 103, 184, 0.3);">
+                    <div class="theme-mini-header">
+                      <span style="color:#0067b8;">Fluent</span>
+                      <span class="theme-mini-badge" style="background:#0067b8; color:#fff;">LIGHT</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:35%; background:rgba(0,0,0,0.15);"></div>
+                      <div class="theme-mini-bar" style="height:80%; background:#0067b8; box-shadow:0 0 6px rgba(0,103,184,0.4);"></div>
+                      <div class="theme-mini-bar" style="height:50%; background:#0067b8;"></div>
+                      <div class="theme-mini-bar" style="height:40%; background:rgba(0,0,0,0.15);"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Win 11 Light</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="nord">
+                  <div class="theme-mini-widget" style="background: rgba(46, 52, 64, 0.9); border-color: rgba(136, 192, 208, 0.35);">
+                    <div class="theme-mini-header">
+                      <span style="color:#88c0d0;">Nord</span>
+                      <span class="theme-mini-badge" style="background:#81a1c1; color:#000;">FROST</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:45%; background:#81a1c1;"></div>
+                      <div class="theme-mini-bar" style="height:85%; background:#88c0d0; box-shadow:0 0 6px #88c0d0;"></div>
+                      <div class="theme-mini-bar" style="height:60%; background:#88c0d0;"></div>
+                      <div class="theme-mini-bar" style="height:40%; background:#81a1c1;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Nord Frost</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="catppuccin">
+                  <div class="theme-mini-widget" style="background: rgba(30, 30, 46, 0.9); border-color: rgba(137, 180, 250, 0.35);">
+                    <div class="theme-mini-header">
+                      <span style="color:#89b4fa;">Mocha</span>
+                      <span class="theme-mini-badge" style="background:#cba6f7; color:#000;">PASTEL</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:50%; background:#cba6f7;"></div>
+                      <div class="theme-mini-bar" style="height:70%; background:#89b4fa; box-shadow:0 0 6px #89b4fa;"></div>
+                      <div class="theme-mini-bar" style="height:90%; background:#f5c2e7;"></div>
+                      <div class="theme-mini-bar" style="height:40%; background:#89b4fa;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Catppuccin</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="tokyo">
+                  <div class="theme-mini-widget" style="background: rgba(26, 27, 38, 0.92); border-color: rgba(122, 162, 247, 0.35);">
+                    <div class="theme-mini-header">
+                      <span style="color:#7aa2f7;">Tokyo</span>
+                      <span class="theme-mini-badge" style="background:#bb9af7; color:#000;">NIGHT</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:40%; background:#bb9af7;"></div>
+                      <div class="theme-mini-bar" style="height:80%; background:#7aa2f7; box-shadow:0 0 6px #7aa2f7;"></div>
+                      <div class="theme-mini-bar" style="height:65%; background:#7dcfff;"></div>
+                      <div class="theme-mini-bar" style="height:35%; background:#bb9af7;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Tokyo Night</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="cyberpunk">
+                  <div class="theme-mini-widget" style="background: rgba(20, 16, 36, 0.92); border-color: rgba(0, 255, 204, 0.4);">
+                    <div class="theme-mini-header">
+                      <span style="color:#00ffcc;">Cyber</span>
+                      <span class="theme-mini-badge" style="background:#fcee0a; color:#000;">NEON</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:35%; background:#fcee0a;"></div>
+                      <div class="theme-mini-bar" style="height:90%; background:#00ffcc; box-shadow:0 0 8px #00ffcc;"></div>
+                      <div class="theme-mini-bar" style="height:60%; background:#ff0055;"></div>
+                      <div class="theme-mini-bar" style="height:45%; background:#00ffcc;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Cyberpunk</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="oled">
+                  <div class="theme-mini-widget" style="background: #000000; border-color: rgba(255, 255, 255, 0.2);">
+                    <div class="theme-mini-header">
+                      <span style="color:#ffffff;">OLED</span>
+                      <span class="theme-mini-badge" style="background:#ffffff; color:#000;">BLACK</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:30%; background:rgba(255,255,255,0.2);"></div>
+                      <div class="theme-mini-bar" style="height:85%; background:#ffffff; box-shadow:0 0 6px #ffffff;"></div>
+                      <div class="theme-mini-bar" style="height:55%; background:rgba(255,255,255,0.7);"></div>
+                      <div class="theme-mini-bar" style="height:35%; background:rgba(255,255,255,0.2);"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">OLED Black</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="caelestia">
+                  <div class="theme-mini-widget" style="background: rgba(12, 16, 32, 0.9); border-color: rgba(0, 240, 255, 0.38);">
+                    <div class="theme-mini-header">
+                      <span style="color:#00f0ff;">Caelestia</span>
+                      <span class="theme-mini-badge" style="background:#7000ff; color:#fff;">AURORA</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:45%; background:#7000ff;"></div>
+                      <div class="theme-mini-bar" style="height:80%; background:#00f0ff; box-shadow:0 0 8px #00f0ff;"></div>
+                      <div class="theme-mini-bar" style="height:60%; background:#00f0ff;"></div>
+                      <div class="theme-mini-bar" style="height:40%; background:#7000ff;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Caelestia Cyan</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="noctalia">
+                  <div class="theme-mini-widget" style="background: rgba(24, 18, 36, 0.9); border-color: rgba(192, 132, 252, 0.38);">
+                    <div class="theme-mini-header">
+                      <span style="color:#c084fc;">Noctalia</span>
+                      <span class="theme-mini-badge" style="background:#f472b6; color:#000;">TWILIGHT</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:40%; background:#f472b6;"></div>
+                      <div class="theme-mini-bar" style="height:85%; background:#c084fc; box-shadow:0 0 8px #c084fc;"></div>
+                      <div class="theme-mini-bar" style="height:55%; background:#f472b6;"></div>
+                      <div class="theme-mini-bar" style="height:35%; background:#c084fc;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Noctalia Twilight</span>
+                </div>
+
+                <div class="theme-card" data-theme-name="serpentinum">
+                  <div class="theme-mini-widget" style="background: rgba(14, 28, 24, 0.9); border-color: rgba(16, 185, 129, 0.38);">
+                    <div class="theme-mini-header">
+                      <span style="color:#10b981;">Serpent</span>
+                      <span class="theme-mini-badge" style="background:#06b6d4; color:#000;">EMERALD</span>
+                    </div>
+                    <div class="theme-mini-body">
+                      <div class="theme-mini-bar" style="height:40%; background:#06b6d4;"></div>
+                      <div class="theme-mini-bar" style="height:85%; background:#10b981; box-shadow:0 0 8px #10b981;"></div>
+                      <div class="theme-mini-bar" style="height:60%; background:#10b981;"></div>
+                      <div class="theme-mini-bar" style="height:35%; background:#06b6d4;"></div>
+                    </div>
+                  </div>
+                  <span class="theme-name">Serpentinum</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom Accent Color Picker -->
+            <div class="setting-group">
+              <div class="setting-label">
+                <span>Color de Acento Primario</span>
+                <span id="accent-hex-display" style="color:var(--accent-primary); font-family:'JetBrains Mono', monospace;">#60cdff</span>
+              </div>
+              <div class="accent-picker-row">
+                <button class="accent-swatch" style="background:#60cdff;" data-color="#60cdff" title="Win11 Cyan"></button>
+                <button class="accent-swatch" style="background:#0078d4;" data-color="#0078d4" title="Corporate Blue"></button>
+                <button class="accent-swatch" style="background:#a855f7;" data-color="#a855f7" title="Purple Mica"></button>
+                <button class="accent-swatch" style="background:#ff007f;" data-color="#ff007f" title="Neon Pink"></button>
+                <button class="accent-swatch" style="background:#10b981;" data-color="#10b981" title="Emerald Green"></button>
+                <button class="accent-swatch" style="background:#f59e0b;" data-color="#f59e0b" title="Amber Gold"></button>
+                <button class="accent-swatch" style="background:#ef4444;" data-color="#ef4444" title="Crimson"></button>
+                <label class="custom-color-label" title="Selector de color libre">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 6-6"/></svg>
+                  <input type="color" id="custom-accent-picker" value="#60cdff" style="opacity:0; width:1px; height:1px; position:absolute;">
+                </label>
+              </div>
+
+              <!-- Material You Dynamic Wallpaper Extractor -->
+              <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--panel-border);">
+                <div>
+                  <div style="font-size: 10px; font-weight: 700; color: #fff;">Material You: Extraer de Fondo de Pantalla</div>
+                  <div style="font-size: 8.5px; color: var(--text-dim);">Detecta el tono dominante vibrante de una imagen y tiñe la suite</div>
+                </div>
+                <label class="btn-add-cube" style="padding: 5px 12px; font-size: 9px; cursor: pointer; margin: 0;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Cargar Wallpaper</span>
+                  <input type="file" id="wallpaper-color-input" accept="image/*" style="display: none;">
+                </label>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">
+                <span>Efecto de Cristal / Desenfoque (Blur)</span>
+                <span id="blur-val-display" style="color:var(--accent-primary)">30px</span>
+              </div>
+              <input type="range" id="blur-slider" class="range-slider" min="0" max="50" value="30">
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">
+                <span>Redondeo de Esquinas (Border Radius)</span>
+                <span id="radius-val-display" style="color:var(--accent-primary)">16px</span>
+              </div>
+              <input type="range" id="radius-slider" class="range-slider" min="6" max="28" value="16">
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">
+                <span>Opacidad de Fondo de los Cubos (0% = Totalmente Transparente)</span>
+                <span id="opacity-val-display" style="color:var(--accent-primary)">94%</span>
+              </div>
+              <input type="range" id="opacity-slider" class="range-slider" min="0" max="100" value="94">
+            </div>
+
+            <div class="setting-group" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+              <div>
+                <div class="toggle-title">Ocultar Bordes en 0% de Opacidad</div>
+                <div class="toggle-desc">Modo HUD flotante minimalista directamente sobre el fondo</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-hide-borders">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-group" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+              <div>
+                <div class="toggle-title">Desactivar Sombras de los Cubos</div>
+                <div class="toggle-desc">Elimina sombras y reflejos oscuros para una transparencia 100% limpia</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-disable-shadows">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- Backup & Share Profile -->
+            <div class="setting-group" style="margin-top:14px; border-top:1px solid var(--panel-border); padding-top:12px;">
+              <div class="setting-label">Copia de Seguridad de tu Rice (.cubeworld)</div>
+              <div class="setting-sublabel">Exporta o importa el diseño, cubos personalizados y configuración en 1 clic.</div>
+              <div style="display:flex; gap:10px; margin-top:8px;">
+                <button id="btn-export-profile" class="btn-add-cube" style="padding:6px 14px; font-size:10px;">Exportar Perfil</button>
+                <label class="btn-add-cube" style="padding:6px 14px; font-size:10px; cursor:pointer;">
+                  Importar Perfil
+                  <input type="file" id="import-profile-input" accept=".json,.cubeworld" style="display:none;">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Cubos & Modos (Unified Bento Presets & Interactive Catalog) -->
+          <div id="tab-widgets" class="settings-section">
+            <div class="setting-label">Disposiciones y Modos de Trabajo (Presets Bento)</div>
+            <div class="setting-sublabel">Haz clic en una miniatura para transformar al instante los cubos activos y su distribución en pantalla.</div>
+
+            <!-- Visual Wireframe Capsule Strip (Inspired by Windows 11 Snap & Bento Layouts) -->
+            <div class="bento-layout-strip" id="bento-layout-strip">
+              <!-- Card 1: Focus Minimal -->
+              <div class="bento-preview-card" data-workspace-mode="focus" title="Modo Focus: Tareas y notas sin distracciones">
+                <div class="bento-card-visual">
+                  <div class="bento-rect tall highlight"></div>
+                </div>
+                <div class="bento-card-name">Focus</div>
+              </div>
+
+              <!-- Card 2: App / Embed Focus -->
+              <div class="bento-preview-card" data-workspace-mode="embed" title="Modo Embed: Bongo Cat o web interactiva">
+                <div class="bento-card-visual">
+                  <div class="bento-rect tall center-icon">
+                    <span class="mini-app-badge">⬡</span>
+                  </div>
+                </div>
+                <div class="bento-card-name">Embed</div>
+              </div>
+
+              <!-- Card 3: Dúo Trabajo -->
+              <div class="bento-preview-card" data-workspace-mode="duo" title="Modo Dúo: Tareas + Media Player (50/50)">
+                <div class="bento-card-visual split-col">
+                  <div class="bento-rect half-tall highlight"></div>
+                  <div class="bento-rect half-tall"></div>
+                </div>
+                <div class="bento-card-name">Dúo</div>
+              </div>
+
+              <!-- Card 4: Multimedia & CAVA -->
+              <div class="bento-preview-card" data-workspace-mode="media" title="Modo Multimedia: Media Hub + CAVA Visualizer">
+                <div class="bento-card-visual split-col">
+                  <div class="bento-rect half-tall"></div>
+                  <div class="bento-rect half-tall highlight"></div>
+                </div>
+                <div class="bento-card-name">Audio</div>
+              </div>
+
+              <!-- Card 5: Ocio / Gaming (Bento 1+2) -->
+              <div class="bento-preview-card" data-workspace-mode="gaming" title="Modo Ocio & Gaming: Bongo Cat + Telemetría + CAVA">
+                <div class="bento-card-visual stack-group">
+                  <div class="bento-rect main-sq highlight"></div>
+                  <div class="bento-stacked-col">
+                    <div class="bento-rect mini-h"></div>
+                    <div class="bento-rect mini-h highlight"></div>
+                  </div>
+                </div>
+                <div class="bento-card-name">Ocio / Game</div>
+              </div>
+
+              <!-- Card 6: Bento Completo (4 cuadrantes 2x2) -->
+              <div class="bento-preview-card" data-workspace-mode="studio" title="Modo Estudio: Cuadrícula completa de módulos">
+                <div class="bento-card-visual grid-4">
+                  <div class="bento-rect q highlight"></div>
+                  <div class="bento-rect q"></div>
+                  <div class="bento-rect q"></div>
+                  <div class="bento-rect q highlight"></div>
+                </div>
+                <div class="bento-card-name">Estudio</div>
+              </div>
+            </div>
+
+            <!-- Mode Descriptions Card -->
+            <div class="mode-info-card" id="mode-info-card" style="margin-top:14px; margin-bottom:20px;">
+              <div class="mode-info-header">
+                <span class="mode-info-badge" id="mode-info-badge">PRESET ACTIVO</span>
+                <span class="mode-info-title" id="mode-info-title">Personalizado / Modular</span>
+              </div>
+              <p class="mode-info-desc" id="mode-info-desc">
+                Pasa el ratón sobre cualquier widget para añadirlo o quitarlo al instante del escritorio.
+              </p>
+            </div>
+
+            <div class="setting-label" style="margin-top:20px; margin-bottom:4px;">Catálogo Modular de Widgets</div>
+            <div class="setting-sublabel" style="margin-bottom:14px;">Acerca el ratón a cualquier tarjeta para añadirlo al escritorio o retirarlo con un solo clic.</div>
+
+            <!-- Categoría A: Multimedia & Audio -->
+            <div class="catalog-category-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span>Multimedia & Audio</span>
+            </div>
+            <div class="catalog-cube-grid">
+              <!-- Widget Card 1: Music -->
+              <div class="catalog-cube-card" data-cube-id="music">
+                <input type="checkbox" data-widget-toggle="music" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Media Hub</div>
+                  <div class="catalog-card-desc">Reproductor con vinilo giratorio, barra de tiempo y volumen</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="music">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 2: CAVA -->
+              <div class="catalog-cube-card" data-cube-id="cava">
+                <input type="checkbox" data-widget-toggle="cava" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10v4"/><path d="M6 6v12"/><path d="M10 3v18"/><path d="M14 8v8"/><path d="M18 5v14"/><path d="M22 10v4"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Audio CAVA Spectrum</div>
+                  <div class="catalog-card-desc">Espectro de audio a 60 FPS con modos barras y radial</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="cava">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 3: MIDI FX -->
+              <div class="catalog-cube-card" data-cube-id="midifx">
+                <input type="checkbox" data-widget-toggle="midifx" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">MIDI FX Studio</div>
+                  <div class="catalog-card-desc">Ecualizador paramétrico con curva dB y efectos acústicos</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="midifx">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 4: Lyrics -->
+              <div class="catalog-cube-card" data-cube-id="lyrics">
+                <input type="checkbox" data-widget-toggle="lyrics" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Karaoke Lyrics</div>
+                  <div class="catalog-card-desc">Letras sincronizadas con soporte para archivos .lrc y scroll</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="lyrics">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categoría B: Productividad & Sistema -->
+            <div class="catalog-category-header" style="margin-top:20px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Productividad & Sistema</span>
+            </div>
+            <div class="catalog-cube-grid">
+              <!-- Widget Card 5: System -->
+              <div class="catalog-cube-card" data-cube-id="system">
+                <input type="checkbox" data-widget-toggle="system" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Telemetría de Sistema</div>
+                  <div class="catalog-card-desc">Monitoreo real de CPU, RAM y GPU con sparkline dinámico</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="system">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 6: Notes -->
+              <div class="catalog-cube-card" data-cube-id="notes">
+                <input type="checkbox" data-widget-toggle="notes" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Tareas & Notas</div>
+                  <div class="catalog-card-desc">Checklist rápido persistente con estados y prioridades</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="notes">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 7: Battery -->
+              <div class="catalog-cube-card" data-cube-id="battery">
+                <input type="checkbox" data-widget-toggle="battery" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Batería & Energía</div>
+                  <div class="catalog-card-desc">Estado de carga, alimentación y porcentaje de batería</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="battery">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 8: GitHub / Streamdeck -->
+              <div class="catalog-cube-card" data-cube-id="github">
+                <input type="checkbox" data-widget-toggle="github" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Streamdeck & GitHub</div>
+                  <div class="catalog-card-desc">Botones macro rápidos y pulso de actividad de GitHub</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="github">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categoría C: Mercados & Clima en Vivo -->
+            <div class="catalog-category-header" style="margin-top:20px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+              <span>Mercados & Clima Global</span>
+            </div>
+            <div class="catalog-cube-grid">
+              <!-- Widget Card 9: Weather -->
+              <div class="catalog-cube-card is-active" data-cube-id="weather">
+                <input type="checkbox" data-widget-toggle="weather" style="display:none;" checked>
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">En Pantalla</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Clima & Reloj Bento</div>
+                  <div class="catalog-card-desc">Temperatura en vivo, reloj, sensación térmica y pronóstico</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-remove" data-catalog-toggle="weather">✕ Quitar de Pantalla</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 10: Crypto -->
+              <div class="catalog-cube-card" data-cube-id="crypto">
+                <input type="checkbox" data-widget-toggle="crypto" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Cripto Ticker</div>
+                  <div class="catalog-card-desc">Precios en tiempo real de BTC, ETH y SOL con variación 24h</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="crypto">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categoría D: Compañeros & Galería -->
+            <div class="catalog-category-header" style="margin-top:20px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>Compañeros & Utilidades</span>
+            </div>
+            <div class="catalog-cube-grid">
+              <!-- Widget Card 11: Bongo Cat -->
+              <div class="catalog-cube-card" data-cube-id="bongocat">
+                <input type="checkbox" data-widget-toggle="bongocat" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Bongo Cat Companion</div>
+                  <div class="catalog-card-desc">Gato reactivo a tecleo, cabeceo rítmico y modo web embed</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="bongocat">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+
+              <!-- Widget Card 12: Photo Gallery -->
+              <div class="catalog-cube-card" data-cube-id="gallery">
+                <input type="checkbox" data-widget-toggle="gallery" style="display:none;">
+                <div class="catalog-card-top">
+                  <div class="catalog-card-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  </div>
+                  <span class="catalog-card-badge">Inactivo</span>
+                </div>
+                <div>
+                  <div class="catalog-card-title">Marco de Fotos</div>
+                  <div class="catalog-card-desc">Pase de diapositivas local y pegado directo desde portapapeles</div>
+                </div>
+                <div class="catalog-card-overlay">
+                  <button class="btn-catalog-action btn-add" data-catalog-toggle="gallery">+ Añadir al Escritorio</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom Cubes Section in Catalog -->
+            <div id="custom-cubes-catalog-section" style="margin-top:20px;">
+              <div class="catalog-category-header">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Tus Cubos Personalizados</span>
+              </div>
+              <div id="custom-cubes-catalog-list" style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+                <div style="font-size:9.5px; color:var(--text-dim);">No hay cubos personalizados creados aún. Usa el botón "+ Cubo" en la barra superior.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Audio & Visualizer -->
+          <div id="tab-audio" class="settings-section">
+            <div class="setting-group">
+              <div class="setting-label">Fuente de Detección de Audio</div>
+              <div class="setting-sublabel">Elige si procesar archivos locales o capturar el audio de cualquier app de Windows (Spotify, YouTube, Juegos).</div>
+              <div style="margin-top:8px; display:flex; gap:8px;">
+                <button class="source-pill active" id="settings-source-local" style="padding:6px 12px; font-size:10px;">Reproductor Local</button>
+                <button class="source-pill" id="settings-source-system" style="padding:6px 12px; font-size:10px;">Audio del Sistema (WASAPI)</button>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">Modo Visualizador de Audio (CAVA)</div>
+              <div class="setting-sublabel">Estilo de renderizado en el canvas a 60 fotogramas por segundo.</div>
+              <div class="cava-mode-selector" style="margin-top:10px; display:flex; gap:8px;">
+                <button class="cava-opt-btn active" data-cava-style="bars">Barras (16 Bands)</button>
+                <button class="cava-opt-btn" data-cava-style="wave">Osciloscopio</button>
+                <button class="cava-opt-btn" data-cava-style="radial">Radial</button>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">Paleta y Gradiente de CAVA</div>
+              <div class="cava-color-selector" style="margin-top:8px; display:flex; gap:8px;">
+                <button class="cava-color-btn active" data-cava-color="theme">Acento Tema</button>
+                <button class="cava-color-btn" data-cava-color="cyberpunk">Cyberpunk</button>
+                <button class="cava-color-btn" data-cava-color="sunset">Sunset</button>
+                <button class="cava-color-btn" data-cava-color="matrix">Emerald</button>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">
+                <span>Multiplicador de Sensibilidad CAVA</span>
+                <span id="cava-sens-display" style="color:var(--accent-primary)">1.2x</span>
+              </div>
+              <input type="range" id="cava-sens-slider" class="range-slider" min="5" max="30" value="12">
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">Volumen Maestro</div>
+              <input type="range" id="master-vol-slider" class="range-slider" min="0" max="100" value="75">
+            </div>
+          </div>
+
+          <!-- 5. Comportamiento & Atajos -->
+          <div id="tab-behavior" class="settings-section">
+            <div class="setting-group" style="display:flex; align-items:center; justify-content:space-between;">
+              <div>
+                <div class="toggle-title">Iniciar CubeWorld con Windows</div>
+                <div class="toggle-desc">Carga automáticamente la suite en segundo plano al encender el PC</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-open-at-login">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- Low-Power PC Mode Toggle -->
+            <div class="setting-group" style="display:flex; align-items:center; justify-content:space-between; margin-top:14px;">
+              <div>
+                <div class="toggle-title">Modo Ahorro / PC de Bajo Rendimiento</div>
+                <div class="toggle-desc">Desactiva el blur pesado y optimiza a 30 FPS para CPUs viejos o ahorro de batería</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-low-power">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- Window Layer Mode (Desktop Wallpaper vs HUD Always on Top) -->
+            <div class="setting-group" style="margin-top:14px;">
+              <div class="setting-label">Capa de Renderizado de Ventana (Window Layer)</div>
+              <div class="setting-sublabel">Determina si los widgets se comportan como fondo de escritorio nativo o flotan sobre las aplicaciones.</div>
+              <div style="display:flex; gap:8px; margin-top:8px;">
+                <button class="layer-opt-btn active" data-layer-mode="desktop" style="flex:1; padding:7px 10px; font-size:9.5px; border-radius:8px; border:1px solid var(--panel-border); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer;">
+                  Fondo de Pantalla (Desktop)
+                </button>
+                <button class="layer-opt-btn" data-layer-mode="topmost" style="flex:1; padding:7px 10px; font-size:9.5px; border-radius:8px; border:1px solid var(--panel-border); background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:pointer;">
+                  Siempre al Frente (HUD Topmost)
+                </button>
+              </div>
+            </div>
+
+            <!-- Gaming & Fullscreen Occlusion Mode (0% CPU) -->
+            <div class="setting-group" style="display:flex; align-items:center; justify-content:space-between; margin-top:14px;">
+              <div>
+                <div class="toggle-title">Modo Oclusión para Juegos (0% CPU al Jugar)</div>
+                <div class="toggle-desc">Pausa de inmediato el canvas CAVA y bucles gráficos cuando juegas o abres apps a pantalla completa</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-game-occlusion" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- Multi-Monitor Screen Selector -->
+            <div class="setting-group" style="margin-top:14px;">
+              <div class="setting-label">Pantalla Activa / Monitor de Salida</div>
+              <div class="setting-sublabel">Selecciona el monitor de Windows donde posicionar los cubos de CubeWorld.</div>
+              <select id="display-select" class="cube-text-input" style="margin-top:8px; width:100%; cursor:pointer;">
+                <option value="primary">Monitor Principal (Auto-Detect)</option>
+              </select>
+            </div>
+
+            <div class="setting-group" style="margin-top:14px;">
+              <div class="setting-label">Fuerza Magnética de Conexión (Snap Distance)</div>
+              <div class="setting-sublabel">Distancia en píxeles antes de que los cubos se fusionen en un rectángulo.</div>
+              <input type="range" id="snap-slider" class="range-slider" min="20" max="80" value="45" style="margin-top:10px;">
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-label">Posiciones en Pantalla</div>
+              <div style="display:flex; gap:10px; margin-top:10px;">
+                <button id="save-layout-btn" class="btn-add-cube" style="padding:8px 14px; background:var(--accent-secondary); color:#fff;">
+                  Guardar Posiciones Actuales
+                </button>
+                <button id="reset-positions-btn" class="btn-add-cube" style="padding:8px 14px; background:rgba(255,255,255,0.08);">
+                  Reorganizar en Cuadrícula
+                </button>
+              </div>
+            </div>
+
+            <div class="setting-group" style="margin-top:20px;">
+              <div class="setting-label">Atajos de Teclado Globales</div>
+              <div class="shortcuts-table">
+                <div class="shortcut-row">
+                  <span class="shortcut-key">Ctrl + ,</span>
+                  <span class="shortcut-desc">Abrir / Cerrar Centro de Configuración</span>
+                </div>
+                <div class="shortcut-row">
+                  <span class="shortcut-key">Shift + Esc</span>
+                  <span class="shortcut-desc">Cerrar aplicación completamente</span>
+                </div>
+                <div class="shortcut-row">
+                  <span class="shortcut-key">Espacio</span>
+                  <span class="shortcut-desc">Reproducir / Pausar Media Hub</span>
+                </div>
+                <div class="shortcut-row">
+                  <span class="shortcut-key">Ctrl + V</span>
+                  <span class="shortcut-desc">Pegar captura en Marco de Fotos</span>
+                </div>
+                <div class="shortcut-row">
+                  <span class="shortcut-key">Clic Derecho</span>
+                  <span class="shortcut-desc">Menú contextual de personalización de cubo</span>
+                </div>
+                <div class="shortcut-row">
+                  <span class="shortcut-key">Doble Clic Tarea</span>
+                  <span class="shortcut-desc">Editar texto de la tarea en línea</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Ecosistema, Marketplace & SDK de Plugins (.cubepack) -->
+          <div id="tab-plugins" class="settings-section">
+            <div class="setting-label">Ecosistema & Plugins Comunitarios (.cubepack SDK)</div>
+            <div class="setting-sublabel">Importa nuevos cubos creados por la comunidad o comparte tus creaciones como paquetes portables.</div>
+
+            <!-- Drag & Drop Cubepack Zone -->
+            <div class="cubepack-dropzone" id="cubepack-dropzone">
+              <div class="dropzone-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="dropzone-text">Arrastra aquí un archivo <b>.cubepack</b> o <b>.cubeworld</b></div>
+              <div class="dropzone-sub">o haz clic para explorar tu disco local</div>
+              <input type="file" id="cubepack-file-input" accept=".cubepack,.json,.cubeworld" style="display:none;">
+            </div>
+
+            <!-- Export Full Pack Button -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:12px; border:1px solid var(--panel-border);">
+              <div>
+                <div style="font-size:10.5px; font-weight:700; color:#fff;">Empaquetar Mi Setup Actual</div>
+                <div style="font-size:9px; color:var(--text-dim);">Exporta todos tus cubos, dimensiones y diseño en un solo paquete .cubepack</div>
+              </div>
+              <button id="btn-export-full-cubepack" class="btn-add-cube" style="padding:6px 14px; font-size:9.5px; margin:0;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Exportar Bundle</span>
+              </button>
+            </div>
+
+            <!-- Curated Community Packs -->
+            <div class="catalog-category-header" style="margin-top:20px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Catálogo Comunitario Destacado</span>
+            </div>
+            <div class="plugins-marketplace-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+              <!-- Pack 1: Cyberpunk HUD -->
+              <div class="plugin-pack-card">
+                <div class="pack-badge neon-cyan">CYBER HUD</div>
+                <div class="pack-title">Cyberpunk 2077 HUD</div>
+                <div class="pack-desc">Radial CAVA reactivo + Ticker Cripto en vivo + Telemetría de núcleo GPU.</div>
+                <button class="btn-install-pack" data-pack-id="cyberpunk">Instalar Preset</button>
+              </div>
+
+              <!-- Pack 2: Lofi Chill -->
+              <div class="plugin-pack-card">
+                <div class="pack-badge lofi">LO-FI BEATS</div>
+                <div class="pack-title">Minimalist Lo-Fi Studio</div>
+                <div class="pack-desc">Media Hub con vinilo retro + Notas con autoguardado + Reloj HUD limpio sin sombras.</div>
+                <button class="btn-install-pack" data-pack-id="lofi">Instalar Preset</button>
+              </div>
+
+              <!-- Pack 3: Stock Trader Pro -->
+              <div class="plugin-pack-card">
+                <div class="pack-badge trader">FINANCE</div>
+                <div class="pack-title">Crypto & Markets Pro</div>
+                <div class="pack-desc">Mercados en tiempo real (BTC/ETH/SOL) + Clima satelital + Telemetría de red.</div>
+                <button class="btn-install-pack" data-pack-id="trader">Instalar Preset</button>
+              </div>
+
+              <!-- Pack 4: DevOps Cloud Monitor -->
+              <div class="plugin-pack-card">
+                <div class="pack-badge devops">DEV OPS</div>
+                <div class="pack-title">DevOps Cloud Pulse</div>
+                <div class="pack-desc">GitHub Dev Pulse + StreamDeck con atajos de terminal + Checklist de despliegue.</div>
+                <button class="btn-install-pack" data-pack-id="devops">Instalar Preset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Acerca de AuraGrid (About & Credits) -->
+          <div id="tab-about" class="settings-section">
+            <div class="about-hero-card">
+              <div class="about-hero-glow"></div>
+              <img src="assets/auragrid-icon.jpg" alt="AuraGrid Logo" class="about-hero-logo">
+              <div class="about-hero-info">
+                <div class="about-hero-badge">OPEN SOURCE • V2.0.0 STABLE</div>
+                <h2 class="about-hero-title">AURA<span>GRID</span></h2>
+                <p class="about-hero-subtitle">Next-Gen Acrylic Bento HUD & Kinetic Desktop Environment for Windows 11</p>
+              </div>
+            </div>
+
+            <!-- Misión y Razón del Proyecto -->
+            <div class="setting-group" style="margin-top:14px;">
+              <div class="setting-label">Propósito & Filosofía</div>
+              <p class="about-desc-text">
+                <b>AuraGrid</b> nace con la misión de fusionar la estética minimalista y modular de los escritorios modernos de Linux/Wayland (Hyprland, Waybar) con la solidez de Windows 11. Diseñado como una capa DirectComposition 100% transparente sobre el fondo de pantalla, transforma tu escritorio en un centro de mando Bento sin bordes toscos, con <b>0.0% de consumo de CPU en reposo</b> y proyección de luz reactiva <b>Aura Glow</b> al ritmo de tu música.
+              </p>
+            </div>
+
+            <!-- Tecnologías Usadas -->
+            <div class="setting-group">
+              <div class="setting-label">Pila Tecnológica (Tech Stack)</div>
+              <div class="about-tech-grid">
+                <div class="about-tech-pill">
+                  <span class="tech-dot" style="background:#00f0ff;"></span>
+                  <span>Electron 28+ (DirectComposition D3D11)</span>
+                </div>
+                <div class="about-tech-pill">
+                  <span class="tech-dot" style="background:#a855f7;"></span>
+                  <span>JavaScript ES6+ (Zero-Polling Engine)</span>
+                </div>
+                <div class="about-tech-pill">
+                  <span class="tech-dot" style="background:#ec4899;"></span>
+                  <span>Web Audio API & CAVA FFT Spectrum</span>
+                </div>
+                <div class="about-tech-pill">
+                  <span class="tech-dot" style="background:#3b82f6;"></span>
+                  <span>HTML5 Canvas High-DPI Real-Time</span>
+                </div>
+                <div class="about-tech-pill">
+                  <span class="tech-dot" style="background:#10b981;"></span>
+                  <span>SnapEngine (Kinetic Clustering)</span>
+                </div>
+                <div class="about-tech-pill">
+                  <span class="tech-dot" style="background:#eab308;"></span>
+                  <span>CSS3 Acrylic Mica Glassmorphism</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Autoría & Licencia -->
+            <div class="setting-group">
+              <div class="setting-label">Autoría & Licencia</div>
+              <div class="about-author-card">
+                <div class="author-meta">
+                  <div class="author-avatar">⚡</div>
+                  <div>
+                    <div class="author-name">Creado y Diseñado por <b>Saenz</b></div>
+                    <div class="author-sub">Ecosistema libre y de código abierto bajo Licencia MIT.</div>
+                  </div>
+                </div>
+                <span class="author-mit-tag">MIT LICENSE</span>
+              </div>
+            </div>
+
+            <!-- Enlace al Repositorio de GitHub -->
+            <div class="setting-group" style="margin-bottom:6px;">
+              <div class="setting-label">Repositorio Oficial en GitHub</div>
+              <div class="about-github-box">
+                <div class="github-box-left">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  <div>
+                    <div style="font-weight:700; color:#fff; font-size:11px;">github.com/saenz/AuraGrid</div>
+                    <div style="font-size:9px; color:var(--text-dim);">Código fuente, releases ejecutables (.exe/.zip) y documentación completa</div>
+                  </div>
+                </div>
+                <button id="btn-open-github-repo" class="btn-confirm-create" style="padding:6px 14px; font-size:10px;">
+                  <span>Ver en GitHub</span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUBE CREATOR STUDIO MODAL -->
+  <div id="cube-creator-backdrop" class="settings-modal-backdrop">
+    <div class="settings-modal cube-creator-modal">
+      <div class="settings-header">
+        <div class="settings-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+          <span>Estudio de Creación de Cubos</span>
+        </div>
+        <button id="close-creator-btn" class="close-btn" title="Cerrar (Esc)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="settings-body" style="padding: 18px 22px; flex-direction: column; overflow-y: auto; gap: 14px;">
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label">1. Selecciona el Tipo de Cubo Widget</div>
+          <div class="template-grid">
+            <div class="template-card active" data-template="note">
+              <span class="template-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </span>
+              <span class="template-name">Bloc de Notas</span>
+              <span class="template-desc">Notas con autoguardado</span>
+            </div>
+            <div class="template-card" data-template="launcher">
+              <span class="template-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </span>
+              <span class="template-name">StreamDeck Studio</span>
+              <span class="template-desc">Botonera táctil con atajos</span>
+            </div>
+            <div class="template-card" data-template="embed">
+              <span class="template-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </span>
+              <span class="template-name">Web / Bongo Embed</span>
+              <span class="template-desc">Incrusta cualquier web o app</span>
+            </div>
+            <div class="template-card" data-template="clock">
+              <span class="template-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <span class="template-name">Reloj Digital HUD</span>
+              <span class="template-desc">Horario 24H y fecha actual</span>
+            </div>
+            <div class="template-card" data-template="pomodoro">
+              <span class="template-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="2" x2="14" y2="2"/><line x1="12" y1="14" x2="15" y2="11"/><circle cx="12" cy="14" r="8"/></svg>
+              </span>
+              <span class="template-name">Pomodoro Focus</span>
+              <span class="template-desc">25m foco / 5m descanso</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label">2. Título & Etiqueta Visible</div>
+          <div style="display:flex; gap:10px;">
+            <input type="text" id="new-cube-title" class="cube-text-input" placeholder="Título del Cubo..." value="Mis Notas">
+            <input type="text" id="new-cube-badge" class="cube-text-input" placeholder="Etiqueta..." value="NOTA" style="max-width:90px; text-transform:uppercase;">
+          </div>
+        </div>
+
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label" id="payload-label">3. Contenido o URL Inicial</div>
+          <textarea id="new-cube-payload" class="cube-textarea" placeholder="Escribe tus notas aquí..."></textarea>
+        </div>
+
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label">4. Formato Inicial</div>
+          <div class="shape-options-row">
+            <button class="shape-opt-btn active" data-shape="1:1">1:1 Cuadrado (200x200)</button>
+            <button class="shape-opt-btn" data-shape="16:9">16:9 Panorámico (340x200)</button>
+            <button class="shape-opt-btn" data-shape="9:16">9:16 Vertical (200x340)</button>
+            <button class="shape-opt-btn" data-shape="2:1">2:1 Ultra Ancho (400x200)</button>
+          </div>
+        </div>
+
+        <div class="creator-actions-row">
+          <button id="cancel-creator-btn" class="btn-cancel">Cancelar</button>
+          <button id="confirm-create-cube" class="btn-confirm-create">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Crear Cubo en Escritorio</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEDICATED WIDGET INSPECTOR MODAL -->
+  <div id="cube-inspector-backdrop" class="settings-modal-backdrop">
+    <div class="settings-modal cube-inspector-modal" style="max-width: 440px;">
+      <div class="settings-header">
+        <div class="settings-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span id="inspector-widget-title">Personalizar Cubo</span>
+        </div>
+        <button id="close-inspector-btn" class="close-btn" title="Cerrar (Esc)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="settings-body" style="padding:18px 22px; flex-direction:column; gap:12px; overflow-y:auto;">
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label">Nombre del Cubo</div>
+          <input type="text" id="inspector-name-input" class="cube-text-input" placeholder="Nombre visible">
+        </div>
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label">Etiqueta / Badge Superior</div>
+          <input type="text" id="inspector-badge-input" class="cube-text-input" placeholder="Ej: NOTA, FOCUS, AUDIO">
+        </div>
+        <div class="setting-group" style="margin-bottom:0;">
+          <div class="setting-label">Formato de Dimensiones</div>
+          <div class="shape-options-row" style="margin-top:6px; display:flex; gap:6px;">
+            <button class="shape-opt-btn active" data-inspector-shape="1:1">1:1</button>
+            <button class="shape-opt-btn" data-inspector-shape="16:9">16:9</button>
+            <button class="shape-opt-btn" data-inspector-shape="9:16">9:16</button>
+            <button class="shape-opt-btn" data-inspector-shape="2:1">2:1</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Context-Aware Utility Settings -->
+        <div id="inspector-custom-fields" style="display:flex; flex-direction:column; gap:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;">
+          <!-- Injected dynamically by app.js based on inspected widget utility -->
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:10px;">
+          <button id="inspector-cancel-btn" class="btn-cancel" style="padding:6px 14px;">Cancelar</button>
+          <button id="inspector-save-btn" class="btn-confirm-create" style="padding:6px 16px;">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACRYLIC GLASS MICRO-PROMPT DIALOG -->
+  <div id="glass-prompt-backdrop" class="settings-modal-backdrop">
+    <div class="settings-modal glass-prompt-modal" style="max-width: 400px;">
+      <div class="settings-header">
+        <div class="settings-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span id="glass-prompt-title">Ingresar Valor</span>
+        </div>
+        <button id="glass-prompt-close" class="close-btn" title="Cerrar (Esc)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="settings-body" style="padding:16px 20px; flex-direction:column; gap:12px;">
+        <div id="glass-prompt-desc" style="font-size:10px; color:var(--text-dim); display:none;"></div>
+        <input type="text" id="glass-prompt-input" class="cube-text-input" placeholder="" style="display:block; width:100%;">
+        <textarea id="glass-prompt-textarea" class="cube-textarea" placeholder="" style="display:none; width:100%; min-height:100px;"></textarea>
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
+          <button id="glass-prompt-cancel" class="btn-cancel" style="padding:6px 14px;">Cancelar</button>
+          <button id="glass-prompt-confirm" class="btn-confirm-create" style="padding:6px 16px;">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLASSMORPHISM ACRYLIC RIGHT-CLICK CONTEXT MENU -->
+  <div id="widget-context-menu" class="widget-context-menu hidden">
+    <div class="context-menu-header">
+      <span id="ctx-widget-title" class="ctx-title">Widget</span>
+      <span id="ctx-widget-badge" class="ctx-badge">CUBE</span>
+    </div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-section-label">Dimensiones</div>
+    <div class="context-menu-shapes-row">
+      <button class="ctx-shape-btn" data-ctx-shape="1:1" title="1:1 Cuadrado (200x200)">1:1</button>
+      <button class="ctx-shape-btn" data-ctx-shape="16:9" title="16:9 Panorámico (340x200)">16:9</button>
+      <button class="ctx-shape-btn" data-ctx-shape="9:16" title="9:16 Vertical (200x340)">9:16</button>
+      <button class="ctx-shape-btn" data-ctx-shape="2:1" title="2:1 Ultra Ancho (400x200)">2:1</button>
+    </div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-item" id="ctx-action-edit">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      <span>Personalizar Widget</span>
+    </div>
+    <div class="context-menu-item" id="ctx-action-lock">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+      <span id="ctx-lock-label">Bloquear Posición</span>
+    </div>
+    <div class="context-menu-item" id="ctx-action-duplicate">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span>Duplicar Cubo</span>
+    </div>
+    <div class="context-menu-item" id="ctx-action-unlink" style="display:none;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18.84 12.25 1.72-1.71a4.5 4.5 0 0 0-6.36-6.36l-1.72 1.71"/><path d="m5.16 11.75-1.72 1.71a4.5 4.5 0 0 0 6.36 6.36l1.72-1.71"/><line x1="8" y1="2" x2="8" y2="5"/><line x1="2" y1="8" x2="5" y2="8"/></svg>
+      <span>Desacoplar de Bento</span>
+    </div>
+    <div class="context-menu-item" id="ctx-action-unlink-all" style="display:none;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      <span>Desacoplar todo el Bento</span>
+    </div>
+    <div class="context-menu-item" id="ctx-action-export">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Exportar (.cubepack)</span>
+    </div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-item danger" id="ctx-action-hide">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <span>Ocultar Widget</span>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

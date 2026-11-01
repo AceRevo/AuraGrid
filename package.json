@@ -1,0 +1,15 @@
+{
+  "name": "auragrid",
+  "version": "2.0.0",
+  "description": "AuraGrid - Next-Gen Acrylic Bento HUD & Reactive Desktop Ambilight for Windows 11",
+  "main": "main.js",
+  "author": "Saenz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saenz/AuraGrid.git"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}

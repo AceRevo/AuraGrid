@@ -1,0 +1,247 @@
+/**
+ * Windows 11 Fluent Theme Engine
+ * Pixel-perfect color matching with official Windows 11 Taskbar, Mica, and Acrylic surfaces.
+ * Calibrated for high readability, crisp text contrast, and glass aesthetics.
+ */
+
+:root,
+[data-theme="win11-dark"] {
+  /* =========================================================
+     OFFICIAL WINDOWS 11 TASKBAR DARK (Mica / Acrylic)
+     Exact RGB: 31, 31, 31 with Fluent highlights and #60cdff accent
+     ========================================================= */
+  --panel-rgb: 31, 31, 31;
+  --panel-opacity: 0.94;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(45, 45, 45, 0.98);
+  --panel-border: rgba(255, 255, 255, 0.10);
+  --panel-border-glow: rgba(96, 205, 255, 0.38);
+  --panel-highlight: rgba(255, 255, 255, 0.12);
+
+  --accent-primary: #60cdff;   /* Official Windows 11 Dark Accent Blue */
+  --accent-secondary: #0078d4; /* Windows 11 Corporate Blue */
+  --accent-highlight: #ff6b81;
+  --accent-success: #6ccb5f;
+
+  --text-main: #ffffff;
+  --text-muted: #d4d4d8;
+  --text-dim: #a1a1aa;
+
+  --cube-size: 200px;
+  --border-radius: 16px;       /* Windows 11 rounded corner standard */
+  --blur-intensity: 30px;
+
+  --panel-specular: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 0 16px rgba(255, 255, 255, 0.015);
+  --panel-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --panel-glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
+
+/* =========================================================
+   OFFICIAL WINDOWS 11 TASKBAR LIGHT
+   Exact RGB: 243, 243, 243 with dark text and #0067b8 accent
+   ========================================================= */
+[data-theme="win11-light"] {
+  --panel-rgb: 243, 243, 243;
+  --panel-opacity: 0.95;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(255, 255, 255, 0.98);
+  --panel-border: rgba(0, 0, 0, 0.12);
+  --panel-border-glow: rgba(0, 103, 184, 0.35);
+  --panel-highlight: rgba(255, 255, 255, 0.90);
+
+  --accent-primary: #0067b8;   /* Windows 11 Light Accent Blue */
+  --accent-secondary: #005a9e;
+  --accent-highlight: #d13438;
+  --accent-success: #107c10;
+
+  --text-main: #18181b;
+  --text-muted: #3f3f46;
+  --text-dim: #71717a;
+}
+
+/* =========================================================
+   NORD FROST
+   Polar arctic deep slate with ice blue accents
+   ========================================================= */
+[data-theme="nord"] {
+  --panel-rgb: 46, 52, 64;
+  --panel-opacity: 0.94;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(59, 66, 82, 0.98);
+  --panel-border: rgba(216, 222, 233, 0.14);
+  --panel-border-glow: rgba(136, 192, 208, 0.45);
+  --panel-highlight: rgba(255, 255, 255, 0.14);
+
+  --accent-primary: #88c0d0;
+  --accent-secondary: #81a1c1;
+  --accent-highlight: #bf616a;
+  --accent-success: #a3be8c;
+
+  --text-main: #eceff4;
+  --text-muted: #e5e9f0;
+  --text-dim: #8892b0;
+}
+
+/* =========================================================
+   CATPPUCCIN MOCHA
+   Soothing warm pastel dark palette
+   ========================================================= */
+[data-theme="catppuccin"] {
+  --panel-rgb: 30, 30, 46;
+  --panel-opacity: 0.94;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(49, 50, 68, 0.98);
+  --panel-border: rgba(205, 214, 244, 0.13);
+  --panel-border-glow: rgba(137, 180, 250, 0.40);
+  --panel-highlight: rgba(255, 255, 255, 0.12);
+
+  --accent-primary: #89b4fa;
+  --accent-secondary: #cba6f7;
+  --accent-highlight: #f38ba8;
+  --accent-success: #a6e3a1;
+
+  --text-main: #cdd6f4;
+  --text-muted: #c6d0f5;
+  --text-dim: #9399b2;
+}
+
+/* =========================================================
+   TOKYO NIGHT
+   Clean Japanese cyberpunk aesthetic
+   ========================================================= */
+[data-theme="tokyo"] {
+  --panel-rgb: 26, 27, 38;
+  --panel-opacity: 0.94;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(36, 40, 59, 0.98);
+  --panel-border: rgba(122, 162, 247, 0.15);
+  --panel-border-glow: rgba(122, 162, 247, 0.45);
+  --panel-highlight: rgba(255, 255, 255, 0.12);
+
+  --accent-primary: #7aa2f7;
+  --accent-secondary: #bb9af7;
+  --accent-highlight: #f7768e;
+  --accent-success: #9ece6a;
+
+  --text-main: #c0caf5;
+  --text-muted: #b4c0ec;
+  --text-dim: #7982a9;
+}
+
+/* =========================================================
+   CYBERPUNK NEON
+   High-contrast synthwave neon vibe
+   ========================================================= */
+[data-theme="cyberpunk"] {
+  --panel-rgb: 20, 16, 36;
+  --panel-opacity: 0.95;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(34, 25, 62, 0.98);
+  --panel-border: rgba(255, 0, 127, 0.28);
+  --panel-border-glow: rgba(0, 255, 204, 0.50);
+  --panel-highlight: rgba(255, 255, 255, 0.15);
+
+  --accent-primary: #00ffcc;
+  --accent-secondary: #ff007f;
+  --accent-highlight: #ffe600;
+  --accent-success: #00ff66;
+
+  --text-main: #ffffff;
+  --text-muted: #d8ccee;
+  --text-dim: #9b8bb8;
+}
+
+/* =========================================================
+   OLED MINIMAL BLACK
+   Pure obsidian black with crystal monochrome accents
+   ========================================================= */
+[data-theme="oled"] {
+  --panel-rgb: 8, 8, 8;
+  --panel-opacity: 0.98;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(22, 22, 22, 0.99);
+  --panel-border: rgba(255, 255, 255, 0.18);
+  --panel-border-glow: rgba(255, 255, 255, 0.45);
+  --panel-highlight: rgba(255, 255, 255, 0.20);
+
+  --accent-primary: #ffffff;
+  --accent-secondary: #cccccc;
+  --accent-highlight: #ff4757;
+  --accent-success: #2ed573;
+
+  --text-main: #ffffff;
+  --text-muted: #e4e4e7;
+  --text-dim: #71717a;
+}
+
+/* =========================================================
+   CAELESTIA SHELL (Wayland / Quickshell Inspired)
+   Ethereal deep frosted glass with neon cyan and electric violet
+   ========================================================= */
+[data-theme="caelestia"] {
+  --panel-rgb: 12, 19, 34;
+  --panel-opacity: 0.88;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(18, 28, 50, 0.96);
+  --panel-border: rgba(0, 240, 255, 0.22);
+  --panel-border-glow: rgba(0, 240, 255, 0.50);
+  --panel-highlight: rgba(255, 255, 255, 0.18);
+
+  --accent-primary: #00f0ff;
+  --accent-secondary: #7000ff;
+  --accent-highlight: #ff007f;
+  --accent-success: #00ffaa;
+
+  --text-main: #f0fdf4;
+  --text-muted: #bae6fd;
+  --text-dim: #64748b;
+  --blur-intensity: 36px;
+}
+
+/* =========================================================
+   NOCTALIA OBSIDIAN (Wayland Shell Inspired)
+   Deep dark twilight glass with neon lavender and rose bloom
+   ========================================================= */
+[data-theme="noctalia"] {
+  --panel-rgb: 10, 12, 20;
+  --panel-opacity: 0.90;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(19, 21, 35, 0.97);
+  --panel-border: rgba(192, 132, 252, 0.24);
+  --panel-border-glow: rgba(192, 132, 252, 0.45);
+  --panel-highlight: rgba(255, 255, 255, 0.16);
+
+  --accent-primary: #c084fc;
+  --accent-secondary: #f472b6;
+  --accent-highlight: #fb7185;
+  --accent-success: #4ade80;
+
+  --text-main: #fdf4ff;
+  --text-muted: #e9d5ff;
+  --text-dim: #706888;
+  --blur-intensity: 32px;
+}
+
+/* =========================================================
+   SERPENTINUM EMERALD (Modular Cybernetic Shell)
+   Deep emerald matrix slate with neon cyber mint
+   ========================================================= */
+[data-theme="serpentinum"] {
+  --panel-rgb: 9, 24, 20;
+  --panel-opacity: 0.89;
+  --panel-bg: rgba(var(--panel-rgb), var(--panel-opacity));
+  --panel-hover: rgba(14, 38, 32, 0.96);
+  --panel-border: rgba(16, 185, 129, 0.28);
+  --panel-border-glow: rgba(16, 185, 129, 0.52);
+  --panel-highlight: rgba(255, 255, 255, 0.16);
+
+  --accent-primary: #10b981;
+  --accent-secondary: #06b6d4;
+  --accent-highlight: #f59e0b;
+  --accent-success: #34d399;
+
+  --text-main: #ecfdf5;
+  --text-muted: #a7f3d0;
+  --text-dim: #4d7c6f;
+  --blur-intensity: 32px;
+}
