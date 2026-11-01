@@ -38,20 +38,6 @@
     </div>
 
     <div class="dock-actions">
-      <!-- Workspace Modes Switcher Pill -->
-      <button id="btn-quick-modes" class="dock-mode-pill" title="Alternar Modo de Espacio (Focus, Ocio/Gaming, Minimal HUD, Estudio)">
-        <span id="mode-icon">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        </span>
-        <span id="mode-label">Modos</span>
-      </button>
-
-      <!-- Quick Ricing Presets Switcher -->
-      <button id="btn-quick-presets" class="dock-mode-pill" title="Cambiar Preset de Estilo Bento (Caelestia, Noctalia, Serpentinum...)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
-        <span>Ricing</span>
-      </button>
-
       <!-- Add New Custom Widget -->
       <button id="btn-add-cube" class="btn-add-cube" title="Crear o Añadir un nuevo Cubo Widget">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -94,66 +80,6 @@
     </svg>
     <span>AURAGRID</span>
   </button>
-
-  <!-- Floating Snap Layouts Bento HUD (Windows 11 Wireframe Selector) -->
-  <div id="floating-snap-hud" class="floating-snap-hud hidden">
-    <div class="snap-hud-presets-row">
-      <!-- 1. Solo 1:1 -->
-      <button class="snap-preset-card" data-snap-layout="single" title="Solo: 1 Cubo Principal en Pantalla">
-        <div class="snap-mini-preview single">
-          <div class="snap-cell"></div>
-        </div>
-      </button>
-
-      <!-- 2. Centrado con Icono / App -->
-      <button class="snap-preset-card" data-snap-layout="embed" title="Modo Aplicación: Foco Interactivo con App">
-        <div class="snap-mini-preview embed">
-          <div class="snap-cell">
-            <div class="snap-app-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m21.12 6.4-8.08-4.66a2.12 2.12 0 0 0-2.08 0L2.88 6.4A2.12 2.12 0 0 0 1.84 8.2v9.33a2.12 2.12 0 0 0 1.04 1.8l8.08 4.67a2.12 2.12 0 0 0 2.08 0l8.08-4.67a2.12 2.12 0 0 0 1.04-1.8V8.2a2.12 2.12 0 0 0-1.04-1.8z"/></svg>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      <!-- 3. Dúo 50/50 Horizontal -->
-      <button class="snap-preset-card active" data-snap-layout="duo" title="Dúo Horizontal: 2 Columnas Balanceadas (50/50)">
-        <div class="snap-mini-preview duo-h">
-          <div class="snap-cell"></div>
-          <div class="snap-cell"></div>
-        </div>
-      </button>
-
-      <!-- 4. Dúo 50/50 Vertical -->
-      <button class="snap-preset-card" data-snap-layout="duo-v" title="Dúo Vertical: 2 Módulos Apilados">
-        <div class="snap-mini-preview duo-v">
-          <div class="snap-cell"></div>
-          <div class="snap-cell"></div>
-        </div>
-      </button>
-
-      <!-- 5. Bento Asimétrico 1+2 -->
-      <button class="snap-preset-card" data-snap-layout="gaming" title="Bento 1+2: Principal + 2 Módulos Apilados">
-        <div class="snap-mini-preview bento-1-2">
-          <div class="snap-cell" style="flex: 1.25;"></div>
-          <div class="snap-col-stacked">
-            <div class="snap-cell"></div>
-            <div class="snap-cell"></div>
-          </div>
-        </div>
-      </button>
-
-      <!-- 6. Bento Quad 2x2 -->
-      <button class="snap-preset-card" data-snap-layout="studio" title="Bento Quad: 4 Cuadrantes Simétricos (2x2)">
-        <div class="snap-mini-preview bento-quad">
-          <div class="snap-cell"></div>
-          <div class="snap-cell"></div>
-          <div class="snap-cell"></div>
-          <div class="snap-cell"></div>
-        </div>
-      </button>
-    </div>
-  </div>
 
   <!-- Workspace Canvas (Transparent Fullscreen where Cubes live on Windows Desktop) -->
   <main id="workspace" class="workspace">
@@ -203,6 +129,49 @@
         <div class="settings-content">
           <!-- 1. Apariencia & Temas -->
           <div id="tab-appearance" class="settings-section active">
+
+            <!-- Curated Bento Ricing Presets -->
+            <div class="setting-group">
+              <div class="setting-label">Presets Rápidos de Ricing (Bento Archetypes)</div>
+              <div class="setting-sublabel">Aplica en 1 clic combinaciones completas de tema, cristal, paleta y tipografía.</div>
+              <div class="ricing-presets-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:8px; margin-top:8px;">
+                <button class="ricing-preset-btn active" data-ricing-preset="caelestia" title="Caelestia Cyan: Aurora Glass con Bento Wayland">
+                  <span class="ricing-dot" style="background:#00f0ff; box-shadow:0 0 8px #00f0ff;"></span>
+                  <div class="ricing-btn-info">
+                    <span class="ricing-title">Caelestia</span>
+                    <span class="ricing-sub">Aurora Glass</span>
+                  </div>
+                </button>
+                <button class="ricing-preset-btn" data-ricing-preset="noctalia" title="Noctalia Twilight: Violeta Místico con Linux Obsidian">
+                  <span class="ricing-dot" style="background:#c084fc; box-shadow:0 0 8px #c084fc;"></span>
+                  <div class="ricing-btn-info">
+                    <span class="ricing-title">Noctalia</span>
+                    <span class="ricing-sub">Twilight Obsidian</span>
+                  </div>
+                </button>
+                <button class="ricing-preset-btn" data-ricing-preset="serpentinum" title="Serpentinum: Verde Esmeralda con Code Mono">
+                  <span class="ricing-dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span>
+                  <div class="ricing-btn-info">
+                    <span class="ricing-title">Serpentinum</span>
+                    <span class="ricing-sub">Emerald Matrix</span>
+                  </div>
+                </button>
+                <button class="ricing-preset-btn" data-ricing-preset="cyberpunk" title="Cyberdeck 2077: Neón Amarillo & Cyan con Orbitron">
+                  <span class="ricing-dot" style="background:#00ffcc; box-shadow:0 0 8px #00ffcc;"></span>
+                  <div class="ricing-btn-info">
+                    <span class="ricing-title">Cyberdeck</span>
+                    <span class="ricing-sub">Neon Orbitron</span>
+                  </div>
+                </button>
+                <button class="ricing-preset-btn" data-ricing-preset="minimal" title="Minimal HUD: 100% Transparente y Limpio">
+                  <span class="ricing-dot" style="background:#ffffff; box-shadow:0 0 8px #ffffff;"></span>
+                  <div class="ricing-btn-info">
+                    <span class="ricing-title">Minimal HUD</span>
+                    <span class="ricing-sub">Clean Glass</span>
+                  </div>
+                </button>
+              </div>
+            </div>
 
             <!-- Typography Font Selector -->
             <div class="setting-group">

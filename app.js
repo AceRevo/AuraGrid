@@ -756,11 +756,17 @@ function instantiateCustomCube(cubeDef) {
             } else if (act === 'settings') {
               if (openSettingsBtn) openSettingsBtn.click();
             } else if (act === 'modes') {
-              const btnQuickModes = document.getElementById('btn-quick-modes');
-              if (btnQuickModes) btnQuickModes.click();
+              if (openSettingsBtn) {
+                openSettingsBtn.click();
+                const tabWidgetsBtn = document.querySelector('[data-tab="tab-widgets"]');
+                if (tabWidgetsBtn) tabWidgetsBtn.click();
+              }
             } else if (act === 'presets') {
-              const btnQuickPresets = document.getElementById('btn-quick-presets');
-              if (btnQuickPresets) btnQuickPresets.click();
+              if (openSettingsBtn) {
+                openSettingsBtn.click();
+                const tabAppBtn = document.querySelector('[data-tab="tab-appearance"]');
+                if (tabAppBtn) tabAppBtn.click();
+              }
             } else if (act === 'cava') {
               const cavaModeBtn = document.getElementById('cava-mode-btn');
               if (cavaModeBtn) cavaModeBtn.click();
@@ -3109,40 +3115,61 @@ function syncSettingsUIFromConfig() {
     customAccentPicker.value = settings.config.accentColor;
   }
   themeCards.forEach(c => c.classList.toggle('active', c.dataset.themeName === settings.config.theme));
+
+  // Sync Ricing Presets buttons
+  document.querySelectorAll('.ricing-preset-btn, [data-ricing-preset]').forEach(b => {
+    b.classList.toggle('active', b.dataset.ricingPreset === settings.config.theme);
+  });
+
+  // Sync Typography Font buttons
+  document.querySelectorAll('.font-opt-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.font === (settings.config.fontStyle || 'modern'));
+  });
+
+  // Sync Window Style buttons
+  document.querySelectorAll('.win-style-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.winStyle === (settings.config.windowStyle || 'bento'));
+  });
+
+  // Sync Master Volume Slider
+  const masterVol = document.getElementById('master-vol-slider');
+  if (masterVol) {
+    masterVol.value = typeof settings.config.volume === 'number' ? settings.config.volume : 75;
+  }
+
+  // Sync CAVA Sensitivity Slider
+  const cavaSens = document.getElementById('cava-sens-slider');
+  const cavaSensDisp = document.getElementById('cava-sens-display');
+  if (cavaSens) {
+    const sensVal = typeof settings.config.cavaSensitivity === 'number' ? settings.config.cavaSensitivity : 1.2;
+    cavaSens.value = Math.round(sensVal * 10);
+    if (cavaSensDisp) cavaSensDisp.textContent = `${sensVal.toFixed(1)}x`;
+  }
+
+  // Sync CAVA Style buttons
+  const curCavaStyle = settings.config.cavaStyle || 'bars';
+  document.querySelectorAll('.cava-opt-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cavaStyle === curCavaStyle);
+  });
+
+  // Sync CAVA Color buttons
+  const curCavaColor = settings.config.cavaColorScheme || 'theme';
+  document.querySelectorAll('.cava-color-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cavaColor === curCavaColor);
+  });
 }
 syncSettingsUIFromConfig();
 
-const ricingPresetBtns = document.querySelectorAll('[data-ricing-preset]');
+const ricingPresetBtns = document.querySelectorAll('.ricing-preset-btn, [data-ricing-preset]');
 ricingPresetBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const presetId = btn.dataset.ricingPreset;
     settings.applyRicingPreset(presetId);
-    ricingPresetBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    ricingPresetBtns.forEach(b => b.classList.toggle('active', b.dataset.ricingPreset === presetId));
     syncSettingsUIFromConfig();
     renderMidiEQCurve();
   });
 });
-
-// Quick Presets Cycler in Floating Dock
-const btnQuickPresets = document.getElementById('btn-quick-presets');
-if (btnQuickPresets) {
-  const presetKeys = ['caelestia', 'noctalia', 'serpentinum', 'cyberpunk', 'minimal'];
-  let presetIdx = 0;
-  btnQuickPresets.addEventListener('click', (e) => {
-    e.stopPropagation();
-    presetIdx = (presetIdx + 1) % presetKeys.length;
-    const nextPreset = presetKeys[presetIdx];
-    settings.applyRicingPreset(nextPreset);
-    ricingPresetBtns.forEach(b => b.classList.toggle('active', b.dataset.ricingPreset === nextPreset));
-    syncSettingsUIFromConfig();
-    renderMidiEQCurve();
-
-    const orig = btnQuickPresets.innerHTML;
-    btnQuickPresets.innerHTML = `${getSvgIcon('palette', 12)} ${nextPreset.toUpperCase()}`;
-    setTimeout(() => { btnQuickPresets.innerHTML = orig; }, 1400);
-  });
-}
 
 // -------------------------------------------------------------
 // WORKSPACE MODES & VISUAL WIREFRAME BENTO SELECTOR
@@ -3413,42 +3440,14 @@ document.querySelectorAll('.bento-preview-card').forEach(card => {
   });
 });
 
-const btnQuickModes = document.getElementById('btn-quick-modes');
-const floatingSnapHud = document.getElementById('floating-snap-hud');
-const snapHudClose = document.getElementById('snap-hud-close');
 
-if (btnQuickModes && floatingSnapHud) {
-  btnQuickModes.addEventListener('click', (e) => {
-    e.stopPropagation();
-    floatingSnapHud.classList.toggle('hidden');
-  });
-
-  if (snapHudClose) {
-    snapHudClose.addEventListener('click', (e) => {
-      e.stopPropagation();
-      floatingSnapHud.classList.add('hidden');
-    });
-  }
-
-  floatingSnapHud.querySelectorAll('.snap-preset-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const layoutId = card.dataset.snapLayout;
-      applyWorkspaceModeUI(layoutId);
-      floatingSnapHud.classList.add('hidden');
-    });
-  });
-
-  window.addEventListener('click', (e) => {
-    if (!floatingSnapHud.contains(e.target) && !e.target.closest('#btn-quick-modes')) {
-      floatingSnapHud.classList.add('hidden');
-    }
-  });
-}
 
 // -------------------------------------------------------------
 // TYPOGRAPHY & WINDOW STYLES
 // -------------------------------------------------------------
+settings.applyTypography(settings.config.fontStyle || 'modern');
+settings.applyWindowStyle(settings.config.windowStyle || 'bento');
+
 document.querySelectorAll('.font-opt-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.font-opt-btn').forEach(b => b.classList.remove('active'));
@@ -3725,7 +3724,11 @@ if (inspectorSaveBtn) {
         const v = parseInt(volEl.value, 10);
         settings.config.volume = v;
         settings.setWidgetOption('music', 'volume', v);
-        if (window.audioEngine) window.audioEngine.setVolume(v / 100);
+        if (window.audioEngine) window.audioEngine.setVolume(v);
+        if (customAudioElement) customAudioElement.volume = v / 100;
+        const masterVol = document.getElementById('master-vol-slider');
+        if (masterVol) masterVol.value = v;
+        if (musicVolSlider) musicVolSlider.value = v;
       }
     } else if (id === 'cava') {
       const stEl = document.getElementById('inspector-field-cava-style');
@@ -3901,9 +3904,11 @@ if (btnDockCollapse && floatingDock && dockExpandPill) {
 // Master Volume & Proximity Snap Sliders
 const masterVolSlider = document.getElementById('master-vol-slider');
 if (masterVolSlider) {
+  masterVolSlider.value = typeof settings.config.volume === 'number' ? settings.config.volume : 75;
   masterVolSlider.addEventListener('input', (e) => {
     const vol = parseInt(e.target.value, 10);
     audio.setVolume(vol);
+    settings.set('volume', vol);
     if (musicVolSlider) musicVolSlider.value = vol;
     if (customAudioElement) customAudioElement.volume = vol / 100;
   });

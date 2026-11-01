@@ -24,22 +24,34 @@ button, input, select, textarea, .widget-cube, .settings-modal, .floating-contro
   font-family: inherit;
 }
 
-body[data-font-style="mono"], body[data-font-style="mono"] * {
-  font-family: var(--font-mono, 'JetBrains Mono', Consolas, monospace) !important;
+body[data-font-style="mono"], html[data-font-style="mono"],
+body[data-font-style="mono"] .widget-cube, body[data-font-style="mono"] .settings-modal, body[data-font-style="mono"] .floating-control-dock,
+body[data-font-style="mono"] input, body[data-font-style="mono"] textarea, body[data-font-style="mono"] button, body[data-font-style="mono"] span, body[data-font-style="mono"] div {
+  font-family: var(--font-mono, 'JetBrains Mono', 'Cascadia Code', Consolas, monospace) !important;
 }
-body[data-font-style="cyber"] .widget-cube,
-body[data-font-style="cyber"] .dock-title,
-body[data-font-style="cyber"] .settings-title,
-body[data-font-style="cyber"] .cube-metric-value,
-body[data-font-style="cyber"] .clock-display-main {
-  font-family: 'Orbitron', 'Rajdhani', sans-serif !important;
-  letter-spacing: 0.5px;
+
+body[data-font-style="cyber"], html[data-font-style="cyber"],
+body[data-font-style="cyber"] .widget-cube, body[data-font-style="cyber"] .dock-title,
+body[data-font-style="cyber"] .settings-title, body[data-font-style="cyber"] .settings-modal,
+body[data-font-style="cyber"] .floating-control-dock, body[data-font-style="cyber"] .cube-metric-value,
+body[data-font-style="cyber"] .clock-display-main, body[data-font-style="cyber"] input,
+body[data-font-style="cyber"] textarea, body[data-font-style="cyber"] button, body[data-font-style="cyber"] span, body[data-font-style="cyber"] div {
+  font-family: 'Orbitron', 'Rajdhani', 'Segoe UI Semibold', monospace !important;
+  letter-spacing: 0.4px;
 }
-body[data-font-style="bento"], body[data-font-style="bento"] * {
-  font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif !important;
+
+body[data-font-style="bento"], html[data-font-style="bento"],
+body[data-font-style="bento"] .widget-cube, body[data-font-style="bento"] .settings-modal,
+body[data-font-style="bento"] .floating-control-dock, body[data-font-style="bento"] input,
+body[data-font-style="bento"] textarea, body[data-font-style="bento"] button, body[data-font-style="bento"] span, body[data-font-style="bento"] div {
+  font-family: 'Outfit', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif !important;
 }
-body[data-font-style="modern"], body[data-font-style="modern"] * {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+
+body[data-font-style="modern"], html[data-font-style="modern"],
+body[data-font-style="modern"] .widget-cube, body[data-font-style="modern"] .settings-modal,
+body[data-font-style="modern"] .floating-control-dock, body[data-font-style="modern"] input,
+body[data-font-style="modern"] textarea, body[data-font-style="modern"] button, body[data-font-style="modern"] span, body[data-font-style="modern"] div {
+  font-family: 'Plus Jakarta Sans', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif !important;
 }
 
 /* Floating Rice Control Dock (Caelestia / Bento Acrylic Capsule - Compact & Sleek) */
@@ -132,19 +144,6 @@ body[data-font-style="modern"], body[data-font-style="modern"] * {
   background: var(--accent-primary);
   color: #000;
   border-color: var(--accent-primary);
-}
-  color: var(--text-main);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.dock-mode-pill:hover {
-  background: rgba(255, 255, 255, 0.16);
-  color: var(--accent-primary);
-  transform: translateY(-1px);
 }
 .dock-mode-pill.locked {
   background: rgba(96, 205, 255, 0.18);
@@ -2499,6 +2498,26 @@ body.opacity-zero.hide-borders .widget-cluster {
   color: #000;
   border-color: var(--accent-primary);
   box-shadow: 0 0 16px var(--panel-border-glow);
+}
+.ricing-preset-btn .ricing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ricing-preset-btn .ricing-btn-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.1;
+}
+.ricing-preset-btn .ricing-title {
+  font-size: 10px;
+  font-weight: 700;
+}
+.ricing-preset-btn .ricing-sub {
+  font-size: 7.5px;
+  opacity: 0.75;
 }
 
 /* In-line task text editing */

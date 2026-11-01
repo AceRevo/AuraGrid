@@ -145,25 +145,29 @@ export class SettingsManager {
   applyTypography(fontKey) {
     this.config.fontStyle = fontKey;
     const root = document.documentElement;
-    if (document.body) {
-      document.body.setAttribute('data-font-style', fontKey);
-    }
     if (root) {
       root.setAttribute('data-font-style', fontKey);
       if (fontKey === 'mono') {
-        root.style.setProperty('--font-main', "'JetBrains Mono', Consolas, monospace");
-        root.style.setProperty('--font-mono', "'JetBrains Mono', Consolas, monospace");
+        root.style.setProperty('--font-main', "'JetBrains Mono', 'Cascadia Code', Consolas, monospace");
+        root.style.setProperty('--font-mono', "'JetBrains Mono', 'Cascadia Code', Consolas, monospace");
+        root.style.setProperty('--font-header', "'JetBrains Mono', monospace");
       } else if (fontKey === 'cyber') {
-        root.style.setProperty('--font-main', "'Orbitron', 'Rajdhani', 'JetBrains Mono', sans-serif");
+        root.style.setProperty('--font-main', "'Orbitron', 'Rajdhani', 'Segoe UI Semibold', monospace");
         root.style.setProperty('--font-mono', "'JetBrains Mono', monospace");
+        root.style.setProperty('--font-header', "'Orbitron', monospace");
       } else if (fontKey === 'bento') {
-        root.style.setProperty('--font-main', "'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif");
+        root.style.setProperty('--font-main', "'Outfit', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif");
         root.style.setProperty('--font-mono', "'JetBrains Mono', monospace");
+        root.style.setProperty('--font-header', "'Outfit', sans-serif");
       } else {
         // modern
-        root.style.setProperty('--font-main', "'Plus Jakarta Sans', system-ui, sans-serif");
+        root.style.setProperty('--font-main', "'Plus Jakarta Sans', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif");
         root.style.setProperty('--font-mono', "'JetBrains Mono', monospace");
+        root.style.setProperty('--font-header', "'Plus Jakarta Sans', sans-serif");
       }
+    }
+    if (document.body) {
+      document.body.setAttribute('data-font-style', fontKey);
     }
     this.saveConfig();
   }
@@ -185,6 +189,10 @@ export class SettingsManager {
 
   applyWindowStyle(styleKey) {
     this.config.windowStyle = styleKey;
+    const root = document.documentElement;
+    if (root) {
+      root.setAttribute('data-window-style', styleKey);
+    }
     if (document.body) {
       document.body.setAttribute('data-window-style', styleKey);
     }
