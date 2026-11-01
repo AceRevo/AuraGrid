@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/auragrid-banner.jpg" alt="AuraGrid Banner" width="100%" style="border-radius: 14px; box-shadow: 0 16px 40px rgba(0,0,0,0.6);" />
+  <img src="assets/auragrid-promo-showcase.jpg" alt="AuraGrid Showcase Banner" width="100%" style="border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);" />
 
   <br/><br/>
 
@@ -8,23 +8,25 @@
   ### Next-Gen Acrylic Bento HUD & Reactive Desktop Ambilight for Windows 11 / 10
 
   <p align="center">
-    <b>A modular, translucent Bento widget architecture designed for desktop ricing, productivity, and media streaming.</b><br/>
-    <i>Unifies kinetic magnetic snapping, real-time hardware telemetry, 60 FPS CAVA audio spectrum, and ambient reactive lighting into a 100% transparent DirectComposition layer.</i>
+    <b>A modular, translucent Bento widget architecture engineered for desktop ricing, hardware monitoring, and media streaming.</b><br/>
+    <i>Fuses kinetic magnetic snapping, real-time hardware telemetry, 60 FPS CAVA audio spectrum, and ambient reactive lighting into a 100% transparent DirectComposition surface.</i>
   </p>
 
   <p align="center">
-    <a href="#english">English</a> •
-    <a href="#español">Español</a> •
+    <a href="#-desktop-preview">Preview</a> •
+    <a href="#-features">Features</a> •
+    <a href="#-widget-suite">Widget Suite</a> •
     <a href="#-quick-start">Quick Start</a> •
-    <a href="#-tech-architecture">Architecture</a> •
-    <a href="#-license">License</a>
+    <a href="#-ricing-studio">Ricing Studio</a> •
+    <a href="#-developer-guide">Dev Guide</a> •
+    <a href="#-español">Español</a>
   </p>
 
   <p align="center">
     <img src="https://img.shields.io/badge/Platform-Windows%2011%20%7C%2010-0078d4?style=for-the-badge&logo=windows&logoColor=white" alt="Windows 11">
     <img src="https://img.shields.io/badge/Architecture-DirectComposition%20Native-00f0ff?style=for-the-badge&logo=electron&logoColor=black" alt="DirectComposition">
     <img src="https://img.shields.io/badge/Idle%20CPU-0.0%25%20(Smart%20Sleep)-10b981?style=for-the-badge" alt="0.0% CPU">
-    <img src="https://img.shields.io/badge/Audio%20DSP-WebAudio%20%7C%20CAVA%2060FPS-ec4899?style=for-the-badge" alt="WebAudio">
+    <img src="https://img.shields.io/badge/Audio%20DSP-WebAudio%20%7C%20WASAPI%20Loopback-ec4899?style=for-the-badge" alt="Audio DSP">
     <img src="https://img.shields.io/badge/License-MIT-a855f7?style=for-the-badge" alt="MIT License">
   </p>
 
@@ -32,103 +34,127 @@
 
 ---
 
-<a name="english"></a>
-## 🌐 English
+<a name="-desktop-preview"></a>
+## 🖥️ Live Desktop Preview (Producción Real)
 
-### 💎 What is AuraGrid?
-**AuraGrid** is an ultra-lightweight, modular Bento Desktop HUD built to bring the beloved aesthetics of modern Linux/Wayland desktop ricing (Hyprland, Waybar, Unixporn) to Windows 11. 
-
-Running as a native transparent overlay via Windows DirectComposition, AuraGrid floats seamlessly over your wallpaper with zero borders and full click-through compatibility. Its kinetic **SnapEngine** enables cubes to magnetically fuse into cohesive, acrylic Bento clusters, with **0.0% CPU consumption at idle**.
+Below is an authentic screenshot of **AuraGrid** running live on a Windows 11 desktop with an anime katana wallpaper, showcasing the fused acrylic Bento glass modules:
 
 <div align="center">
-  <img src="assets/auragrid-icon.jpg" alt="AuraGrid Icon" width="180" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);" />
+  <img src="assets/auragrid-desktop-preview.png" alt="AuraGrid Live Desktop Showcase" width="100%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 60px rgba(0,0,0,0.7);" />
+  <p><sub><b>Fig 1.</b> AuraGrid Desktop HUD: Fused Weather & Clock Bento cluster (top-left), Media Hub (bottom-left), Battery & StreamDeck (top-right), and Real-time Hardware Telemetry (bottom-right).</sub></p>
 </div>
-
-### ✨ Core Highlights
-
-1. **🧩 Kinetic Bento Clustering (SnapEngine):**
-   - Free-form drag-and-drop snapping in horizontal, vertical, and 2x2 grid configurations.
-   - Smooth morphing into unified rectangular glass panels with shared acrylic blur and hairline cell dividers.
-   - Decouple any cube at will or reorganize on the fly.
-
-2. **🌈 Reactive Aura Glow (Desktop Ambilight):**
-   - Live ambient illumination projecting dynamic color halos directly onto your wallpaper.
-   - Automatically pulses and beats in sync with bass frequencies from your media or system loopback audio.
-
-3. **📊 CAVA 60 FPS Audio Visualizer:**
-   - 3 dynamic visualizer modes: Classic Fluent Bars (Equalizer), Liquid Smooth Waveform, and Radial Pulsating Spectrum Ring.
-   - **Smart Sleep:** Automatically sleeps when audio is paused or silent, cutting GPU usage down to zero.
-
-4. **⚡ Zero-CPU System Telemetry:**
-   - Real hardware metrics queried directly through Windows APIs (CPU %, RAM GB used/free, GPU VRAM, Network load, Uptime).
-   - High-DPI rolling sparkline graph with real-time history.
-
-5. **🎧 Media Hub & 3-Band Parametric EQ:**
-   - Multi-format player (`.mp3`, `.flac`, `.wav`, `.ogg`, `.m4a`) with drag-and-drop playlist queue.
-   - Windows System Audio Loopback (WASAPI) to visualize Spotify, YouTube, or gaming audio.
-   - Synchronized Karaoke lyrics (`.lrc`) with smooth auto-scroll.
-
-6. **🐱 Bongo Cat Typing Companion:**
-   - Real-time keystroke reactivity (left/right paws mapped to hardware keys) with live KPS action meter.
-   - Optional mechanical acoustic typing sound effects (SFX).
-
-7. **⚡ Low-Power PC Mode:**
-   - Auto-detects modest hardware (≤ 4 CPU threads) and switches to lightweight matte glass, ensuring butter-smooth performance on older laptops and legacy PCs.
 
 ---
 
-<a name="español"></a>
-## 🇪🇸 Español
+<a name="-features"></a>
+## ✨ Core Highlights
 
-### 💎 ¿Qué es AuraGrid?
-**AuraGrid** es un entorno HUD de escritorio modular estilo Bento, diseñado para trasladar la estética contemporánea del *desktop ricing* de Linux/Wayland (Hyprland, Waybar) a Windows 11 y 10.
+* **🧩 Kinetic Bento Clustering (SnapEngine):** Cubes automatically detect proximity and magnetically fuse into unified rectangular glass panels with shared acrylic blur and hairline cell dividers. Freely connect vertically, horizontally, or in asymmetric Bento grids.
+* **🌈 Reactive Aura Glow (Desktop Ambilight):** Projects a dynamic, rhythmic ambient color halo directly onto your desktop wallpaper that beats in sync with the bass frequencies of your music.
+* **⚡ 0.0% CPU at Idle (Zero-Polling Architecture):** Verified zero CPU footprint when idle. Uses event-driven listeners and intelligent graphic sleep when audio or user interaction stops.
+* **🎮 Fullscreen Game Mode Occlusion:** Automatically pauses canvas render loops and GPU calls when you launch full-screen games or applications, leaving 100% of your GPU/CPU power for gaming.
+* **🎧 Windows System Audio Loopback (WASAPI):** Capture and visualize music from Spotify, YouTube, Discord, VLC, or video games without audio doubling or echo feedback.
+* **🎨 1-Click Ricing Presets:** Transform the entire visual aesthetic instantly with curated themes (*Caelestia Cyan*, *Noctalia Twilight*, *Serpentinum*, *Cyberdeck 2077*, and *Minimal HUD*).
+* **🔤 Multi-Engine Typography:** Instant cascade across all widgets with native fallback stacks (*Plus Jakarta Sans*, *JetBrains / Cascadia Code*, *Outfit*, and *Orbitron*).
+* **💻 Low-Power PC Mode:** Automatically detects lightweight hardware (≤ 4 CPU threads) and optimizes shaders to ensure smooth 60 FPS performance on modest laptops.
 
-Opera mediante una capa transparente de aceleración por hardware con DirectComposition de Windows, integrándose directamente sobre tu fondo de pantalla sin bordes toscos. Su motor **SnapEngine** permite que los cubos se atraigan magnéticamente y se fusionen en elegantes bloques Bento unificados, manteniendo un **consumo de CPU en reposo del 0.0%**.
+---
 
-### ✨ Características Principales
+<a name="-widget-suite"></a>
+## 📦 The 12 Modular Bento Widgets
 
-* **Fusión Cinética Bento:** Arrastra y conecta cubos libremente en horizontal, vertical o cuadrícula 2x2. Al unirse, forman un panel de cristal acrílico continuo y uniforme.
-* **Aura Glow Ambilight:** Halo de luz ambiental reactivo que se proyecta sobre el escritorio y late al ritmo de la música.
-* **Espectro de Audio CAVA a 60 FPS:** Visualizador de espectro en tiempo real con 3 modos (Barras Fluent, Onda Líquida y Anillo Radial). Se duerme automáticamente al pausar el audio.
-* **Telemetría de Hardware Real:** Métricas exactas de CPU, memoria RAM en GB, GPU y red con gráfico Sparkline fluido.
-* **Media Hub & Ecualizador Paramétrico:** Reproductor multimedia con soporte para archivos locales, captura de audio de Windows (Spotify/YouTube/Juegos) y letras sincronizadas `.lrc`.
-* **Modo Oclusión para Juegos:** Congela automáticamente animaciones cuando juegas a pantalla completa para dejar el 100% de los recursos a tu juego.
-* **Modo Bajo Consumo:** Optimizado para procesadores antiguos o modestos mediante rasterizado directo por GPU y supresión de shaders pesados.
+| Widget | Icon | Description | Key Features |
+| :--- | :---: | :--- | :--- |
+| **Media Hub** | 🎵 | Audio player & system visualizer hub | Spinning vinyl, seekbar, local tracks + WASAPI loopback capture |
+| **Audio CAVA** | 📊 | 60 FPS real-time audio spectrum | 16-band log equalizer, Waveform oscilloscope, and Radial spectrum |
+| **Telemetry** | ⚡ | Real-time system hardware monitor | Accurate CPU %, RAM GB, GPU VRAM, network load, and sparkline graph |
+| **Weather & Clock** | 🌤️ | Live meteorology & digital clock | Temperature, weather condition, humidity, wind, 3-day forecast, 24h clock |
+| **Tasks & Notes** | 📝 | Persistent markdown checklist | Interactive task items, filter tabs (All/Pending/Done), inline text editing |
+| **Bongo Cat** | 🐱 | Interactive typing desk companion | Dual-paw keyboard smash, live KPS meter, audio head bobbing, mechanical SFX |
+| **Crypto Ticker** | 📈 | Real-time cryptocurrency prices | Live prices & 24h percentage delta pills for BTC, ETH, and SOL |
+| **Battery & Power** | 🔋 | Circular battery gauge & power state | SVG animated circle, charging detection, AC adapter state tag |
+| **StreamDeck** | 🕹️ | Programmable touch action launchpad | Quick shortcuts for Terminal, Mute, HUD Lock, Settings, GitHub, and Web |
+| **Photo Frame** | 🖼️ | Smooth slideshow picture frame | Multi-photo dropzone, clipboard paste (`Ctrl + V`), crossfade animation |
+| **MIDI FX Studio** | 🎛️ | 3-band parametric acoustic equalizer | LowShelf 120Hz, Mid Peak 1kHz, HighShelf 3.8kHz, Drive tube distortion |
+| **Karaoke Lyrics** | 🎤 | Synchronized timestamp lyrics | `.lrc` file parser, auto-scroll, active line glowing highlight |
 
 ---
 
 <a name="-quick-start"></a>
-## 🚀 Instalación y Uso Rápido (Quick Start)
+## 🚀 Quick Start & Installation
 
-### Opción 1: Ejecutable Portátil (Sin instalación)
-1. Descarga el paquete de lanzamiento desde la sección **Releases**.
-2. Descomprime la carpeta y ejecuta **`Lanzar-AuraGrid.bat`** (o `CubeWorld.exe`).
-3. ¡Listo! AuraGrid flotará de inmediato sobre tu fondo de pantalla.
+### Option A: Portable Standalone Release (Zero Setup)
+1. Head to the **[Releases](https://github.com/AceRevo/AuraGrid/releases)** tab and download `AuraGrid-v2.0.0-win32-x64.zip`.
+2. Extract the folder anywhere on your PC (e.g. `C:\Tools\AuraGrid`).
+3. Double-click **`Lanzar-AuraGrid.bat`** (or `CubeWorld.exe`).
+4. **AuraGrid** will immediately float smoothly over your Windows desktop.
 
-### Opción 2: Desde el Código Fuente
-Requiere **Node.js (v18+)** instalado:
+### Option B: Run from Source
+Prerequisites: **Node.js (v18+)** and **npm** installed.
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/saenz/AuraGrid.git
+# 1. Clone the repository
+git clone https://github.com/AceRevo/AuraGrid.git
 cd AuraGrid
 
-# 2. Instalar dependencias
+# 2. Install dependencies
 npm install
 
-# 3. Iniciar la aplicación
+# 3. Launch AuraGrid in development mode
 npm start
 ```
 
-### Empaquetar la aplicación en archivo `.asar`:
+### Packaging into Production ASAR:
+To compile and package the staging files into the production bundle:
 ```bash
-npx @electron/asar pack staging-app dist/CubeWorld-win32-x64/resources/app.asar
+npx --yes @electron/asar pack staging-app dist/CubeWorld-win32-x64/resources/app.asar
 ```
 
 ---
 
-<a name="-tech-architecture"></a>
-## 🛠️ Arquitectura Técnica
+<a name="-ricing-studio"></a>
+## 🎨 Ricing Studio & Customization
+
+Press **`Ctrl + ,`** to open the **Centro de Configuración & Ricing Studio**:
+
+<div align="center">
+  <img src="assets/auragrid-banner.jpg" alt="AuraGrid Banner" width="90%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);" />
+</div>
+
+### 1. Curated Ricing Archetypes
+* **Caelestia Cyan:** Deep cyan aurora glass with Bento Wayland rounded frames and Outfit typography.
+* **Noctalia Twilight:** Velvet twilight purple with Linux Obsidian frame textures and modern sans.
+* **Serpentinum:** Emerald matrix green with code-first JetBrains Mono styling.
+* **Cyberdeck 2077:** High-contrast neon yellow and cyan with Orbitron tech HUD typography.
+* **Minimal HUD:** 100% borderless, shadowless crystal glass for maximum desktop minimalism.
+
+### 2. Material You Wallpaper Color Extractor
+Click **"Cargar Wallpaper"** in the Settings menu to extract the dominant vibrant chromatic accent directly from your desktop wallpaper image and tint the entire HUD suite dynamically.
+
+### 3. Glassmorphism Sliders
+Fine-tune **Blur Intensity (0-50px)**, **Border Radius (6-28px)**, and **Background Opacity (0-100%)** in real-time without restarting the application.
+
+---
+
+<a name="keyboard-shortcuts"></a>
+## ⌨️ Keyboard Shortcuts & Context Gestures
+
+| Shortcut / Action | Function |
+| :--- | :--- |
+| **`Ctrl + ,`** | Open / Close Settings Hub & Ricing Studio |
+| **`Shift + Esc`** | Completely close the application |
+| **`Space`** | Play / Pause media playback |
+| **`Ctrl + V`** | Paste image from clipboard directly into Photo Frame |
+| **`Right-Click on Cube`** | Open Acrylic Glass Context Menu (Resize, Duplicate, Lock, Uncouple) |
+| **`Double-Click Task`** | Inline edit task text in Quick Notes |
+| **`Click '+ Cubo'`** | Open the Cube Creator Studio modal to spawn custom widgets |
+
+---
+
+<a name="-developer-guide"></a>
+## 🛠️ Architecture & Developer Guide
+
+AuraGrid is built with a strictly decoupled, event-driven architecture designed for community extension:
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -140,27 +166,47 @@ npx @electron/asar pack staging-app dist/CubeWorld-win32-x64/resources/app.asar
          ▼                 ▼                 ▼
  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
  │  SnapEngine   │ │  AudioEngine  │ │  Telemetry    │
- │ (Event-driven │ │ (WebAudio API │ │ (Real Windows │
+ │ (Kinetic Snap │ │ (WebAudio API │ │ (Real Windows │
  │  Morphing &   │ │  CAVA 60 FPS  │ │  Hardware     │
- │  Clustering)  │ │  Ambilight)   │ │  APIs & D3D)  │
+ │  Clustering)  │ │  WASAPI DSP)  │ │  APIs & D3D)  │
  └───────────────┘ └───────────────┘ └───────────────┘
 ```
 
-* **Renderizador:** Chromium / Electron con DirectComposition D3D11 nativo.
-* **Optimización de Memoria:** Heap V8 acotado (`--max-old-space-size=128`), `--enable-zero-copy` y `--enable-gpu-rasterization`.
-* **CPU en Reposo:** **0.0%** verificado mediante timers inteligentes basados en inactividad.
+For complete instructions on:
+- How to write custom widgets using the `WidgetCube` API.
+- Creating and sharing community `.cubepack` packages.
+- Adding custom themes and CSS variables.
+
+👉 **Read the full [Developer & Extension Guide (DEVELOPER_GUIDE.md)](DEVELOPER_GUIDE.md)**.
+
+---
+
+<a name="-español"></a>
+## 🇪🇸 Documentación en Español
+
+### 💎 ¿Qué es AuraGrid?
+**AuraGrid** es una suite HUD de widgets modulares estilo Bento diseñada para llevar la estética de los escritorios contemporáneos de Linux/Wayland (Hyprland, Waybar) a Windows 11 y 10. Opera mediante una capa nativa 100% transparente con DirectComposition de Windows, integrándose directamente sobre tu fondo de pantalla sin marcos ni bordes toscos.
+
+### 🌟 Puntos Fuertes
+1. **Fusión Magnética Bento (SnapEngine):** Arrastra y conecta cubos libremente en horizontal, vertical o en bloques 2x2. Al juntarse, se transforman automáticamente en un solo panel de cristal acrílico unificado.
+2. **Aura Glow Ambilight:** Halo de luz ambiental proyectado sobre el fondo de pantalla que late al compás de los graves de tu música.
+3. **Consumo de CPU en Reposo del 0.0%:** Arquitectura basada en eventos con suspensión inteligente de gráficos cuando no hay interacción o sonido.
+4. **Modo Oclusión para Juegos:** Congela bucles gráficos cuando juegas a pantalla completa para dejar el 100% de la potencia de tu gráfica a tu juego.
+5. **Captura de Audio del Sistema (WASAPI):** Visualiza el sonido de Spotify, YouTube o videojuegos sin ecos ni duplicaciones.
+6. **Presets Rápidos de Ricing:** Cambia entre Caelestia, Noctalia, Serpentinum, Cyberdeck y Minimal con 1 solo clic.
 
 ---
 
 <a name="-license"></a>
 ## 📄 Licencia & Créditos
 
-* **Autor:** Creado y diseñado por **[Saenz](https://github.com/saenz)**.
-* **Licencia:** Distribuido bajo la **Licencia MIT**. Eres libre de modificarlo, distribuirlo y utilizarlo en tus propios setups de personalización.
-* **Contribuciones:** ¡Pull requests, sugerencias y nuevos cubos de la comunidad son bienvenidos!
-
----
+* **Autor:** Creado y diseñado por **[AceRevo (Saenz)](https://github.com/AceRevo)**.
+* **Licencia:** Distribuido bajo la **[Licencia MIT](LICENSE)**. Eres completamente libre de usarlo, modificarlo y compartirlo en tus configuraciones de escritorio.
+* **Agradecimientos:** A la comunidad de personalización y ricing de Windows y Linux por la inspiración estética continua.
 
 <div align="center">
-  <sub>AuraGrid • Designed with passion for aesthetic minimalism and high-performance computing.</sub>
+  <br/>
+  <img src="assets/auragrid-mark.jpg" alt="AuraGrid Mark" width="48" style="border-radius: 50%;" />
+  <br/>
+  <sub><b>AuraGrid</b> • Designed with passion for aesthetic minimalism and high-performance computing.</sub>
 </div>
