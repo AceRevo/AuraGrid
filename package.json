@@ -10,6 +10,7 @@
     "url": "https://github.com/AceRevo/AuraGrid.git"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "node --check main.js && node --check app.js"
   }
 }
